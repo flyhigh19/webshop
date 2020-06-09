@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>订单支付界面</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/shop/payment.css">
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+    <script type="text/javascript" src="js/qrcode.min.js"></script>
+    <script src="js/getParameter.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            var orderID=getParameter("orderID");
+            if(orderID==null){
+                $.post("order/findConfirmOrder.do",{},function (data) {
+                    if(data.flag==false){
+
+                    }else{
+                        $("#amountStr").html("¥"+data.totalMoney.toFixed(2));
+                        $("#orderID").html(data.orderID);
+                        $("#money").html("￥"+data.totalMoney.toFixed(2));
+                    }
+                })
+                $("#btnCommonSubmit").click(function () {
+                    $.post("pay/getWeiXinPayCode.do",{},function (data) {
+                        if(data!=null){
+                            $("#payment").modal("show")
+                            if(data.result_code=="FAIL"){
+                                $("#qrcode").html(data.err_code_des);
+                            }else if (data.result_code=="SUCCESS") {
+                                $("#qrcode").html("");
+                                let qrcode = new QRCode(document.getElementById("qrcode"), {
+                                    width : 150, height : 150
+                                });
+                                qrcode.makeCode(data.code_url);
+                            }
+                        }else{
+                            alert("订单出错，请刷新后重试！！")
+                        }
+                    })
+                })
+            }else {
+                $.post("order/findMyPayOrder.do", {orderID:orderID}, function (data) {
+                    if(data.flag==false){
+
+                    }else{
+                        $("#amountStr").html("¥"+data.totalMoney.toFixed(2));
+                        $("#orderID").html(data.orderID);
+                        $("#money").html("￥"+data.totalMoney.toFixed(2));
+                    }
+                })
+                $("#btnCommonSubmit").click(function () {
+                    $.post("pay/orderPay.do",{orderID:orderID},function (data) {
+                        if(data!=null){
+                            $("#payment").modal("show")
+                            if(data.result_code=="FAIL"){
+                                $("#qrcode").html(data.err_code_des);
+                            }else if (data.result_code=="SUCCESS") {
+                                $("#qrcode").html("");
+                                let qrcode = new QRCode(document.getElementById("qrcode"), {
+                                    width : 150, height : 150
+                                });
+                                qrcode.makeCode(data.code_url);
+                            }
+                        }else{
+                            alert("订单出错，请刷新后重试！！")
+                        }
+                    })
+                })
+            }
+        })
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<div class="cart_screen">
+    <!--订单编号-->
+    <div class="pay_price">
+        <span class="price">支付金额：
+            <span id="amountStr" class="red" amount="9.00">¥99999999999.00</span>
+        </span>
+        <span>
+            <span class="name_c">订单号：
+                <span><a href="#" target="_blank" id="orderID">0123456789</a></span>
+			</span> <!-- 定金预售 -->  <!-- /end定金预售 --> <!-- 返券 -->
+		</span>
+    </div>
+    <h3><b>常用支付方式</b></h3>
+    <div class="pay_box">
+        <table class="payment_table" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td>
+                    <a href="javascript:void(0);" class="selPayType1 current" paytype="84">
+                        <img src="images/weixin.png" title="微信支付" width="140" height="40">
+                        <span></span>
+                        <span class="hot">推荐</span>
+                    </a>
+                    <p></p>
+                </td>
+                <td>
+                    <a href="javascript:void(0);" class="selPayType1" paytype="51">
+                        <img src="images/zhifubao.png" title="支付宝" width="140" height="40">
+                        <span></span>
+                    </a>
+                    <p></p>
+                </td>
+                <td>
+                    <a href="javascript:void(0);" class="selPayType1" paytype="36">
+                        <img src="images/kuaiqian.png" title="快钱" width="140" height="40">
+                        <span></span>
+                    </a>
+                    <p></p>
+                </td>
+                <td>
+                    <a href="javascript:void(0);" class="selPayType1" paytype="48">
+                        <img src="images/gongshang.png" title="工商银行" width="140" height="40">
+                        <span></span>
+                    </a>
+                    <p></p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--花呗分期选择-->
+        <div id="divAlipayhb" class="instalments" style="display: none;"></div>
+        <!--end/花呗分期选择-->
+        <a id="btnCommonSubmit" href="javascript:void(0);" class="btn btn_big">立即支付</a>
+        <input id="hidCommonPayType" type="hidden" value="48">
+    </div>
+    <h3><b>其他支付平台和银行</b></h3>
+    <div class="pay_list">
+        <dl>
+            <dt>
+                <a href="javascript:void(0);" class="selPayType2" paytype="90">建设银行</a>
+                <a href="javascript:void(0);" class="selPayType2" paytype="67">中国银行</a>
+                <a href="javascript:void(0);" class="selPayType2" paytype="45">农业银行</a>
+                <a href="javascript:void(0);" class="selPayType2" paytype="57">中信银行</a>
+                <a href="javascript:void(0);" class="selPayType2" paytype="59">民生银行</a>
+                <a href="javascript:void(0);" class="selPayType2" paytype="60">广发银行</a>
+            </dt>
+            <dd style="display: none;" class="morePayType">
+                <a href="javascript:void(0);" class="selPayType2" paytype="61">兴业银行</a>
+                <a href="javascript:void(0);" class="selPayType2" paytype="66">平安银行</a>
+            </dd>
+            <!--点更多展示dd-->
+        </dl>
+        <!-- <span class="down"></span> -->
+        <a id="btnShowMorePayType" href="javascript:void(0);" class="drop">更多支付银行<span class="down"></span></a>
+    </div>
+    <!--新增收货地址-->
+    <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="popWeiXinPay" class="pop_tip">
+                <div class="head_title">
+                    <div class="title_name">微信扫码支付</div>
+                    <div class="title" data-dismiss="modal"></div>
+                </div>
+                <p class="price">支付<span class="amountStr" id="money"></span>元</p>
+                <div class="code2">
+                    <div id='qrcode'></div>
+                </div>
+                <a href="javascript:void(0)" class="btn_b">若微信支付已完成，请点击！</a>
+                <!-- http://orderb.dangdang.com/myallorders.aspx -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
+</body>
+</html>

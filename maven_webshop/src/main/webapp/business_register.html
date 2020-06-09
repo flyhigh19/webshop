@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>商家注册</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/shop/shop_business_register.css">
+    <!--导入jquery-->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+    <script type="text/javascript" src="js/web_shop/jquery.cityselect.js"></script>
+    <script type="text/javascript" src="js/web_shop/business_register.js"></script>
+    <style>
+        .sure{
+            font-size: 12px;
+            color:darkgrey;
+            display: block;
+            line-height: 14px;
+            padding: 8px 13px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<!-- 头部 end -->
+<div class="rg_background">
+    <div class="rg_screen">
+        <div class="rg_head">
+					<span class="sub_head">
+						<a href="#" class="home">首页</a>
+						<a href="#">注册帮助</a>
+					</span>
+            <a href="/register.html" class="enterprise_user" >新用户注册</a>
+            <a href="javascript:void(0);"class="new_user">商家注册</a>
+        </div>
+        <div class="rg_body">
+            <form id="registerForm">
+                <div class="zhanghu">
+                    <p class="zhanghu_text1">账户信息</p>
+                    <table class="register_form_one">
+                        <tr class="blank"></tr>
+                        <tr>
+                            <td class="rgform_left">用户名</td>
+                            <td class="rgform_right">
+                                <input name="employeeUser" id="userName" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入您的用户名" type="text" class="text">
+                                <span id="J_tipUserName" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">设置密码</td>
+                            <td class="rgform_right">
+                                <input name="employeePwd" id="employeePwd" onpaste="return false;" tabindex="2" type="password" class="text" maxlength="20">
+                                <span id="J_tipPassword" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">确认密码</td>
+                            <td class="rgform_right">
+                                <input name="rePassword" id="Repassword" onpaste="return false" tabindex="3" type="password" class="text" maxlength="20">
+                                <span id="J_tipRePassword" class="warn"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="qiye">
+                    <p class="zhanghu_text2">企业及联系人信息</p>
+                    <table class="register_form_two">
+                        <tr class="blank"></tr>
+                        <tr>
+                            <td class="rgform_left">公司名称</td>
+                            <td class="rgform_right">
+                                <input name="businessName" id="businessName" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请填写营业执照上的名称" type="text" class="text">
+                                <span id="J_tipBusinessName" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">公司地址</td>
+                            <td class="rgform_right">
+                                <select class="prov" name="prov"></select>
+                                <select class="city" name="city"></select>
+                                <select class="dist" name="dist"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">&nbsp;</td>
+                            <td class="rgform_right">
+                                <input name="businessAddress" id="businessAddress" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请填写街道地址" type="text" class="text">
+                                <span id="J_tipBusinessAddress" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">公司邮箱</td>
+                            <td class="rgform_right">
+                                <input name="businessEmail" id="businessEmail" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="建议填写企业邮箱" type="text" class="text">
+                                <span id="J_tipBusinessEmail" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">公司固定电话</td>
+                            <td class="rgform_right">
+                                <input name="businessPhone" id="businessPhone" autocomplete="off" maxlength="40" tabindex="1" value="" type="text" class="text">
+                                <span id="J_tipBusinessPhone" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">法人姓名</td>
+                            <td class="rgform_right">
+                                <input name="legalName" id="legalName" autocomplete="off" maxlength="40" tabindex="1" value="" type="text" class="text">
+                                <span id="J_tiplegalName" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">法人手机号</td>
+                            <td class="rgform_right">
+                                <input name="legalPhone" id="legalPhone" autocomplete="off" maxlength="40" tabindex="1" value="" type="text" class="text">
+                                <span id="J_tiplegalPhone" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">验证码</td>
+                            <td class="rgform_right">
+                                <input class="text_pin" type="text" name="checkCode" id="Checkcode" autocomplete="off" placeholder="请输入验证码" maxlength="4" tabindex="5">
+                                <img src="user/CheckCode.do" onclick="changeCheckCode(this)" class="codeimg">
+                                <a href="javascript:void(0);" class="changeimg" id="changeimg">换张图</a>
+                                <script type="text/javascript">
+                                    //图片点击事件
+                                    function changeCheckCode(img) {
+                                        img.src="user/CheckCode.do?"+new Date().getTime();
+                                    }
+                                    $("#changeimg").click(function () {
+                                        $(".codeimg").attr("src","user/CheckCode.do?"+new Date().getTime());
+                                    })
+                                </script>
+                                <span id="J_tipCheckCode" class="warn"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">&nbsp;</td>
+                            <td class="rgform_right">
+                            <span>
+                                <input name="isAgree" value="agreeprotocol" onmouseover="this.style.cursor='pointer';this.style.cursor='hand';" tabindex="7" type="checkbox" checked="checked">
+                                我已经同意协议
+                                <a href="#" tabindex="8">《交易条款》</a>和
+                                <a href="#" tabindex="10">《隐私政策》</a>
+                            </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rgform_left">&nbsp;</td>
+                            <td class="rgform_right">
+                                <input id="btn_register" class="btn_login" tabindex="11" type="button" value="立即注册"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--引入尾部-->
+<div id="footer"></div>
+</body>
+</html>

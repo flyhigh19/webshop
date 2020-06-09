@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>登录网上商城</title>
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/shop/shop_login.css">
+	<!--<link rel="stylesheet" href="css/register.css">-->
+	<!--导入jquery-->
+	<script src="js/jquery-3.3.1.js"></script>
+	<!--导入布局js，共享header和footer-->
+	<script type="text/javascript" src="js/include.js"></script>
+	<style>
+		.sure{
+			font-size: 12px;
+			color:darkgrey;
+			display: block;
+			line-height: 14px;
+			padding: 8px 13px;
+			margin-right: 5px;
+		}
+	</style>
+	<script>
+		function checkMemberPhone () {
+			var memberphone = $("#MemberPhone").val();
+			var flag = /^1[34578]\d{9}$/.test(memberphone);
+			if (!flag){
+				$("#MemberPhone").css("border","1px solid red");
+				$("#J_tipMemberPhone").empty();
+				$("#J_tipMemberPhone").removeClass("sure")
+				$("#J_tipMemberPhone").addClass("warn");
+				$("#J_tipMemberPhone").html("手机格式不正确，请重新输入");
+				$("#phone_yes").remove();
+			}else {
+				/*这里必须设置请求为同步，不然等结果返回，前端代码早就执行完了*/
+				$.ajaxSettings.async = false;
+				$.post("user/loginPhone.do",{MemberPhone:memberphone},function (data) {
+					if(!data.flag){
+						$("#MemberPhone").css("border","1px solid red");
+						$("#J_tipMemberPhone").empty();
+						$("#J_tipMemberPhone").removeClass("sure");
+						$("#J_tipMemberPhone").addClass("warn");
+						$("#J_tipMemberPhone").html(data.errorMsg);
+						flag=false;
+					}else{
+						$("#MemberPhone").css("border","");
+						$("#J_tipMemberPhone").empty();
+						$("#J_tipMemberPhone").removeClass("warn");
+						if($("#phone_yes").length<1){
+							$("#MemberPhone").after('<b id="phone_yes">√</b>')
+						}
+						flag=true;
+					}
+				},"json");
+			}
+			return flag;
+		}
+		function checkPassword () {
+			var password = $("#MemberPassword").val();
+			var  flag = /^\w{6,20}$/.test(password);
+			if (!flag){
+				$("#MemberPassword").css("border","1px solid red");
+				$("#J_tipPassword").empty();
+				$("#J_tipPassword").removeClass("sure")
+				$("#J_tipPassword").addClass("warn");
+				$("#J_tipPassword").html("密码长度为6-20个字符，请重新输入");
+				$("#yes_password").remove();
+			}else {
+				$("#J_tipPassword").empty();
+				if($("#yes_password").length<1){
+					$("#MemberPassword").after('<b id="yes_password">√</b>')
+				}
+			}
+			return flag;
+		}
+		$(function () {
+			/*
+			 *  校验手机号码
+			 * */
+			$("#MemberPhone").blur(checkMemberPhone);
+			$("#MemberPhone").focus(function () {
+				$("#MemberPhone").removeAttr("placeholder");
+				$("#MemberPhone").css("border","");
+				$("#J_tipMemberPhone").empty();
+				$("#J_tipMemberPhone").removeClass("warn")
+				$("#J_tipMemberPhone").addClass("sure");
+				$("#J_tipMemberPhone").html("请输入已注册的手机号码登录网上商城");
+				$("#phone_yes").remove();
+			})
+			/*
+               *  校验密码
+               *  	长度  6-20位字符 （字母或者数字）
+               * */
+			$("#MemberPassword").blur(checkPassword);
+			$("#MemberPassword").focus(function () {
+				$("#MemberPassword").removeAttr("placeholder");
+				$("#MemberPassword").css("border","");
+				$("#J_tipPassword").empty();
+				$("#J_tipPassword").removeClass("warn");
+				$("#J_tipPassword").addClass("sure");
+				$("#J_tipPassword").html("请填写长度为6-20个字符的密码");
+				$("#yes_password").remove();
+			});
+			/*前端提示用户进行验证码信息输入*/
+			$("#Checkcode").blur(function () {
+				$("#J_tipCheckCode").empty();
+				$("#Checkcode").attr("placeholder",'请输入验证码');
+			})
+			$("#Checkcode").focus(function () {
+				$("#Checkcode").removeAttr("placeholder");
+				$("#Checkcode").css("border","");
+				$("#J_tipCheckCode").empty();
+				$("#J_tipCheckCode").removeClass("warn");
+				$("#J_tipCheckCode").addClass("sure");
+				$("#J_tipCheckCode").html("请填写图片中的字符，不区分大小写");
+			});
+			/*点击立即注册异步提交表单*/
+			$("#btn_login").click(function () {
+				var memberPhoneFlag = checkMemberPhone();
+				var passwordFlag = checkPassword();
+				if (memberPhoneFlag && passwordFlag){
+					//通过ajax 提交表单数据到服务器
+					// 原因：项目的基本架构是前后端分离，前端页面都是html页面 ，html页面中不能通过el表达式获取request中的数据
+					// 所有服务器是不能将数据保持到request中传递到页面里面来的，但是ajax请求能够接受服务器响应回来的数据
+					$.post("user/login.do",$("#loginForm").serialize(),function (data) {
+						/*
+                            1. 如果服务器注册成功 跳转页面
+                            2. 否则展示错误信息
+                        */
+						if(data.flag){
+							alert("恭喜您，登录成功！！");
+							location.href="index.html";
+						}else {
+							//alert("对不起，登录失败！！")
+							if(data.identify.indexOf("PasswordError")!=-1){
+								$("#yes_password").remove();
+								$("#MemberPassword").css("border","1px solid red");
+								$("#J_tipPassword").empty();
+								$("#J_tipPassword").removeClass("sure");
+								$("#J_tipPassword").addClass("warn");
+								$("#J_tipPassword").html(data.errorMsg);
+							}else if(data.identify.indexOf("CheckCodeError")!=-1){
+								$("#Checkcode").css("border","1px solid red");
+								$("#J_tipCheckCode").empty();
+								$("#J_tipCheckCode").removeClass("sure");
+								$("#J_tipCheckCode").addClass("warn");
+								$("#J_tipCheckCode").html(data.errorMsg);
+							}
+						}
+					},"json");
+				}
+				return false;
+			});
+		})
+	</script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<!-- 头部 end -->
+<div class="login_ground">
+	<div class="login_screen">
+		<div class="login_head">
+			<div class="title"><b>欢迎您登录网上商城账户</b></div>
+		</div>
+		<div class="login_body">
+			<form id="loginForm">
+				<table class="login_form">
+					<tr class="login_blank"></tr>
+					<tr>
+						<td class="lgform_left">&nbsp;</td>
+						<td class="lgform_right">
+							<input name="memberPhone" id="MemberPhone" autocomplete="off" maxlength="11" tabindex="1" value="" placeholder="手机号码" type="text" class="text">
+							<span id="J_tipMemberPhone" class="warn"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="lgform_left">&nbsp;</td>
+						<td class="lgform_right">
+							<input name="memberPassword" id="MemberPassword" onpaste="return false;" tabindex="2" placeholder="密码" type="password" class="text" maxlength="20">
+							<span id="J_tipPassword" class="warn"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="lgform_left">&nbsp;</td>
+						<td class="lgform_right">
+							<input class="text_pin" type="text" id="Checkcode" name="checkCode" autocomplete="off" placeholder="请输入验证码" maxlength="4" tabindex="5">
+							<img src="user/CheckCode.do" alt="" onclick="changeCheckCode(this)" class="codeimg">
+							<a href="javascript:void(0);" class="changeimg" id="changeimg">换张图</a>
+							<script type="text/javascript">
+								//图片点击事件
+								function changeCheckCode(img) {
+									img.src="user/CheckCode.do?"+new Date().getTime();
+								}
+								$("#changeimg").click(function () {
+									$(".codeimg").attr("src","user/CheckCode.do?"+new Date().getTime());
+								})
+							</script>
+							<span id="J_tipCheckCode" class="warn"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="lgform_left">&nbsp;</td>
+						<td class="lgform_right_one">
+						<span>
+							<input id="sevenday_login" name="sevenday_login" onmouseover="this.style.cursor='pointer';this.style.cursor='hand';" tabindex="7" type="checkbox" checked="checked">
+							七天内自动登陆
+							<a href="#" class="forgetpassword">忘记密码?</a>
+						</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="lgform_left">&nbsp;</td>
+						<td class="lgform_right_two">
+							<a id="btn_login" href="javascript:void(0);" class="btn_login" tabindex="11">立即登录</a>
+							<div>
+								<a href="#" class="sites">使用合作网站登录</a>
+								<a href="register.html" class="now_register">立即注册</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+<!--引入尾部-->
+<div id="footer"></div>
+</body>
+</html>

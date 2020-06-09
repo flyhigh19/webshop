@@ -1,0 +1,170 @@
+<!-- 头部 start -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+    .nav-active{
+        background: #00D0D4;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="css/shop/shop_footer.css">
+<script src="js/getParameter.js"></script>
+<script>
+    $(function () {
+        $(".welcome").show();
+        $(".login_true").hide();
+        //查询用户信息
+        $.get("user/FindLoginUser.do",{},function (data) {
+            if(data){
+                $(".welcome").hide();
+                $(".login_true").show();
+                if($("#exit").length<1){
+                    var phone=data.memberPhone.substr(0, 3) + '****' + data.memberPhone.substring(7, 11);
+                    var msg="Hi,"+"<a style='color: red'>"+phone+"</a>";
+                    $("#span_username").html(msg);
+                    $("#span_username").after("&nbsp;&nbsp;[<a style='color: black' href='javascript:void(0)' id='exit'>退出</a>]");
+                }
+                $("#exit").click(function () {
+                    location.href="javascript:location.href='user/Exit.do';"
+                })
+            }else{
+                $(".welcome").show();
+                $(".login_true").hide();
+            }
+        });
+        var goodsID = getParameter("goodsID");
+        var wd = getParameter("wd");
+        if(wd&&wd!='null'){
+            wd=decodeURIComponent(wd);
+            $("#search_input").val(wd);
+        }
+       //查询分类数据
+        $.get("category/FindAll.do",{},function (data) {
+            if(data!=null){
+                $("#category").html("");
+                var li = "<li class='nav-active'><a href='index.html' style='width: 203px;text-align: center'>全部商品分类</a></li>";
+                if (goodsID){
+                    li = "<li><a href='index.html' style='width: 203px;text-align: center'>全部商品分类</a></li>";
+                }
+                $("#category").append(li);
+                //遍历数组,拼接字符串(<li>)
+                for (var i = 0; i < data.length; i++) {
+                    if (goodsID == data[i].goodsID) {
+                        li = ' <li class="nav-active"><a href="goods_list.html?goodsID='+data[i].goodsID+'">'+data[i].typeName+'</a></li>'
+                    }else {
+                        li = ' <li><a href="goods_list.html?goodsID='+data[i].goodsID+'">'+data[i].typeName+'</a></li>'
+                    }
+                    $("#category").append(li);
+                }
+                //拼接收藏排行榜的li,<li><a href="favoriterank.html">收藏排行榜</a></li>
+                li= '<li><a href="favoriterank.html" style="width: 203px;text-align: center">收藏排行榜</a></li>';
+                //将lis字符串，设置到ul的html内容中
+                $("#category").append(li);
+            }
+        });
+        //给搜索按钮注册点击事件
+        $("#search-button").click(function () {
+            //获取搜索框中输入的值
+            var word = $("#search_input").val();
+            location.href="goods_list.html?wd="+word+"&&goodsID="+null;
+        })
+        /*给购物车按钮注册点击事件*/
+        $("#shop_cart").click(function () {
+            location.href="/shop_cart.html";
+        })
+        /*获取购物车中商品的数量*/
+        $.post("cart/findShopCartList.do",{},function (data) {
+            var goodsNumTotal=null;
+            if(data.flag&&data.data.items.length>0){
+                for (var i = 0; i < data.data.items.length; i++) {
+                    goodsNumTotal=goodsNumTotal+data.data.items[i].goodsNum;
+                }
+                $("#shop_cart").html("购物车 "+goodsNumTotal)
+            }else{
+                $("#shop_cart").html("购物车 0")
+            }
+        })
+        /*获取订单数量*/
+        $.post("order/findMyOrderList.do", {}, function (data) {
+            if(data.flag==false){
+                $("#myorder").html("我的订单 0")
+            }else{
+                $("#myorder").html("我的订单 "+data.length)
+            }
+        })
+        /*给我的订单获取点击事件*/
+        $("#myorder").click(function () {
+            location.href="/myorder.html";
+        })
+    });
+</script>
+<header id="header">
+    <div class="shortcut">
+        <div class="goto">
+            <a href="#" class="address">送至：湖南</a>
+        </div>
+        <!--未登陆状态 -->
+        <div class="welcome">
+            <font href="javascript:void(0)" class="register">欢迎光临网上商城系统</font>&nbsp;&nbsp;
+            <a href="login.html" class="login_page">登录</a>&nbsp;&nbsp;
+            <a href="register.html" class="register_page">免费注册</a>
+        </div>
+        <!--登陆状态-->
+        <div class="login_true">
+            <span id="span_username" class="span_username"></span>
+        </div>
+        <div class="head_content">
+            <div class="shopcart">
+                <div class="photo">
+                    <img src="images/shopcart.png">
+                </div>
+                <div class="intro">
+                    <p><a href="shop_cart.html" style="text-decoration: none;color: black">购物车</a></p>
+                </div>
+            </div>
+            <div class="bookmark">
+                <div class="photo">
+                    <img src="images/shoucang.png">
+                </div>
+                <div class="intro">
+                    <p><a href="/myfavorite.html" style="text-decoration: none;color: black">收藏夹</a></p>
+                </div>
+            </div>
+            <div class="myorder">
+                <p><a href="/myorder.html" style="text-decoration: none;color: black">我的订单</a></p>
+            </div>
+            <div class="customer">
+                <p>客户服务</p>
+            </div>
+            <div class="sitemap">
+                <div class="sitemapphoto">
+                    <img src="images/sitemap.png">
+                </div>
+                <div class="intro">
+                    <p>网站导航</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header_wrap">
+        <div class="vlog">
+            <a href="/index.html"><img src="images/logo.png" alt=""></a>
+        </div>
+        <div class="search1">
+            <input name="" id="search_input"  type="text" placeholder="请输入想要搜索的商品名称" class="search_input" autocomplete="off">
+            <a id="search-button" class="search-button">搜索</a>
+        </div>
+        <div class="shopcart1">
+            <div class="btn-group" role="group" aria-label="..." id="btn_group">
+                <button type="button" class="btn btn-info" id="shop_cart">购物车 0</button>
+                <button type="button" class="btn btn-default" id="myorder">我的订单</button>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- 头部 end -->
+ <!-- 首页导航 -->
+<div class="navitem">
+    <ul id="category" class="nav">
+
+    </ul>
+</div>
+    

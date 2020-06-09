@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>我的购物车</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/shop/shop_cart.css">
+    <!--导入jquery-->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+    <script>
+        $(function () {
+            $.post("cart/findShopCartList.do",{},function (data) {
+                $("#shop_content").html("");
+                if(data.flag&&data.data.items.length>0){
+                    /*console.log(data.data.items[0].goods.goodsName)*/
+                    var shop_title='<ul class="shop_title" id="shop_title">\n' +
+                        '                <li class="f1">\n' +
+                        '                    <a id="j_selectall" href="javascript:void(0)" class="checknow fn-checkall check_on" dd_name="全选">选中</a>全选\n' +
+                        '                </li>\n' +
+                        '                <li class="f2">商品信息</li>\n' +
+                        '                <li class="f3">单价（元）</li>\n' +
+                        '                <li class="f4">数量</li>\n' +
+                        '                <li class="f4">金额（元）</li>\n' +
+                        '                <li class="f5">操作</li>\n' +
+                        '            </ul>'
+                    $("#shop_content").append(shop_title)
+                    for (var i = 0; i < data.data.items.length; i++) {
+                        var goodsMsg = data.data.items[i];
+                        $.ajaxSettings.async = false;
+                        $.get("favorite/isFavorite.do",{goodsID:goodsMsg.goods.goodsID,item:goodsMsg.goods.item},function (result) {
+                            $.ajaxSettings.async = false;
+                            $.get("cart/findGoodsInCart.do",{goodsID:goodsMsg.goods.goodsID,item:goodsMsg.goods.item,favoriteResult:result.flag},function (goodsInCart) {
+                                if(goodsInCart.isFavorite=="true"){
+                                    var goodsfactory = '<div id="goodsfactory">\n' +
+                                        '                <a style="text-decoration: none;color: black">' + goodsInCart.goods.factory + '</a>\n' +
+                                        '            </div>'
+                                    $("#shop_content").append(goodsfactory)
+                                    var shop_contentmsg='<div class="shop_contentmsg">\n' +
+                                        '                <table>\n' +
+                                        '                    <tbody>\n' +
+                                        '                        <tr class="bb_none">\n' +
+                                        '                            <td class="row1">\n' +
+                                        '                                <a href="javascript:void(0)" data-item="887200145" class="fn-product-check checknow">选中</a>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row_img">\n' +
+                                        '                                <a href="goods_detail.html?goodsID='+goodsInCart.goods.goodsID+'&&item='+goodsInCart.goods.item+'" target="_blank" id="xiangqin'+i+'"> <img src="'+goodsInCart.goods.imgsrc+'" height="80" width="80"> </a>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row_name">\n' +
+                                        '                                <div class="name">\n' +
+                                        '                                    <a href="goods_detail.html?goodsID='+goodsInCart.goods.goodsID+'&&item='+goodsInCart.goods.item+'" title="'+goodsMsg.goods.goodsName+'" target="_blank" dd_name="查看详情">\n' +
+                                        '                                        '+goodsInCart.goods.goodsName+'\n' +
+                                        '                                    </a>\n' +
+                                        '                                </div>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row3">\n' +
+                                        '                                <span id="goodsOnePrice'+i+'">￥'+goodsInCart.goods.price.toFixed(2)+'</span>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td data-minbuy="0" class="fn-count-tip row3 ">\n' +
+                                        '                                <span class="amount fn-updatecount">\n' +
+                                        '                                    <a id="num_jian'+i+'" href="javascript:void(0)">-</a>\n' +
+                                        '                                    <input value="'+goodsInCart.goodsNum+'" type="text" id="input_num'+i+'" readonly="readonly">\n' +
+                                        '                                    <a id="num_jia'+i+'" href="javascript:void(0)">+</a>\n' +
+                                        '                                </span>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row4">\n' +
+                                        '                                <span class="red" id="goodsTotalPrice'+i+'">￥'+(goodsInCart.goods.price*goodsInCart.goodsNum).toFixed(2)+'</span>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row5 ">\n' +
+                                        '                                <span>\n' +
+                                        '                                    <a href="javascript:void(0)" id="unFavorite'+i+'">取消收藏</a>\n' +
+                                        '                                </span>\n' +
+                                        '                                <span>\n' +
+                                        '                                    <a href="javascript:void(0)" id="deleteGoods'+i+'">删除</a>\n' +
+                                        '                                </span>\n' +
+                                        '                            </td>\n' +
+                                        '                        </tr>\n' +
+                                        '                    </tbody>\n' +
+                                        '                    <tfoot>\n' +
+                                        '                        <tr class="total">\n' +
+                                        '                            <td class="row1">&nbsp;</td>\n' +
+                                        '                            <td class="row_img">店铺合计</td>\n' +
+                                        '                            <td colspan="2">&nbsp;</td>\n' +
+                                        '                            <td colspan="3" class="row4"><span class="red big ooline alignright" id="dianpuPrice'+i+'">￥'+(goodsInCart.goods.price*goodsInCart.goodsNum).toFixed(2)+'</span></td>\n' +
+                                        '                        </tr>\n' +
+                                        '                    </tfoot>\n' +
+                                        '                </table>\n' +
+                                        '            </div>'
+                                }else{
+                                    var goodsfactory = '<div id="goodsfactory">\n' +
+                                        '                <a style="text-decoration: none;color: black">' + goodsInCart.goods.factory + '</a>\n' +
+                                        '            </div>'
+                                    $("#shop_content").append(goodsfactory)
+                                    var shop_contentmsg='<div class="shop_contentmsg">\n' +
+                                        '                <table>\n' +
+                                        '                    <tbody>\n' +
+                                        '                        <tr class="bb_none">\n' +
+                                        '                            <td class="row1">\n' +
+                                        '                                <a href="javascript:void(0)" data-item="887200145" class="fn-product-check checknow">选中</a>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row_img">\n' +
+                                        '                                <a href="goods_detail.html?goodsID='+goodsInCart.goods.goodsID+'&&item='+goodsInCart.goods.item+'" target="_blank" id="xiangqin'+i+'"> <img src="'+goodsInCart.goods.imgsrc+'" height="80" width="80"> </a>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row_name">\n' +
+                                        '                                <div class="name">\n' +
+                                        '                                    <a href="goods_detail.html?goodsID='+goodsInCart.goods.goodsID+'&&item='+goodsInCart.goods.item+'" title="'+goodsMsg.goods.goodsName+'" target="_blank" dd_name="查看详情">\n' +
+                                        '                                        '+goodsInCart.goods.goodsName+'\n' +
+                                        '                                    </a>\n' +
+                                        '                                </div>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row3">\n' +
+                                        '                                <span id="goodsOnePrice'+i+'">￥'+goodsInCart.goods.price.toFixed(2)+'</span>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td data-minbuy="0" class="fn-count-tip row3 ">\n' +
+                                        '                                <span class="amount fn-updatecount">\n' +
+                                        '                                    <a id="num_jian'+i+'" href="javascript:void(0)">-</a>\n' +
+                                        '                                    <input value="'+goodsInCart.goodsNum+'" type="text" id="input_num'+i+'" readonly="readonly">\n' +
+                                        '                                    <a id="num_jia'+i+'" href="javascript:void(0)">+</a>\n' +
+                                        '                                </span>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row4">\n' +
+                                        '                                <span class="red" id="goodsTotalPrice'+i+'">￥'+(goodsInCart.goods.price*goodsInCart.goodsNum).toFixed(2)+'</span>\n' +
+                                        '                            </td>\n' +
+                                        '                            <td class="row5 ">\n' +
+                                        '                                <span>\n' +
+                                        '                                    <a href="javascript:void(0)" id="favorite'+i+'">点击收藏</a>\n' +
+                                        '                                </span>\n' +
+                                        '                                <span>\n' +
+                                        '                                    <a href="javascript:void(0)" id="deleteGoods'+i+'">删除</a>\n' +
+                                        '                                </span>\n' +
+                                        '                            </td>\n' +
+                                        '                        </tr>\n' +
+                                        '                    </tbody>\n' +
+                                        '                    <tfoot>\n' +
+                                        '                        <tr class="total">\n' +
+                                        '                            <td class="row1">&nbsp;</td>\n' +
+                                        '                            <td class="row_img">店铺合计</td>\n' +
+                                        '                            <td colspan="2">&nbsp;</td>\n' +
+                                        '                            <td colspan="3" class="row4"><span class="red big ooline alignright" id="dianpuPrice'+i+'">￥'+(goodsInCart.goods.price*goodsInCart.goodsNum).toFixed(2)+'</span></td>\n' +
+                                        '                        </tr>\n' +
+                                        '                    </tfoot>\n' +
+                                        '                </table>\n' +
+                                        '            </div>'
+                                }
+                                $("#shop_content").append(shop_contentmsg);
+                                /*数量加*/
+                                function num_jia(){
+                                    $("#num_jia"+i).click(function () {
+                                        var id=$(this).attr("id").substring(7,8);
+                                        var input_num=$("#input_num"+id).val();
+                                        input_num++;
+                                        $("#input_num"+id).attr("value",input_num)
+                                        $("#dianpuPrice"+id).html("")
+                                        $("#goodsTotalPrice"+id).html("")
+                                        $("#dianpuPrice"+id).html("￥"+(goodsInCart.goods.price*input_num).toFixed(2))
+                                        $("#goodsTotalPrice"+id).html("￥"+(goodsInCart.goods.price*input_num).toFixed(2))
+                                    })
+                                    return true;
+                                }
+                                num_jia();
+                                /*数量减*/
+                                function num_jian(){
+                                    $("#num_jian"+i).click(function () {
+                                        var id=$(this).attr("id").substring(8,9);
+                                        var input_num=parseInt($("#input_num"+id).val());
+                                        input_num--;
+                                        if(input_num<=0){
+                                            input_num=0;
+                                        }
+                                        $("#input_num"+id).attr("value",input_num)
+                                        $("#dianpuPrice"+id).html("")
+                                        $("#goodsTotalPrice"+id).html("")
+                                        $("#dianpuPrice"+id).html("￥"+(goodsInCart.goods.price*input_num).toFixed(2))
+                                        $("#goodsTotalPrice"+id).html("￥"+(goodsInCart.goods.price*input_num).toFixed(2))
+                                    })
+                                    return true;
+                                }
+                                num_jian();
+                                $("#deleteGoods"+i).click(function () {
+                                    //给出提示
+                                    var flag=window.confirm("您确认要删除该商品吗？？");
+                                    if(flag){
+                                        $.post("cart/deleteGoodsInCart.do",{goodsID:goodsInCart.goods.goodsID,item:goodsInCart.goods.item},function (data) {
+                                            if(data.flag){
+                                                location.href="/shop_cart.html";
+                                            }
+                                        })
+                                    }
+                                })
+                                $("#favorite"+i).click(function () {
+                                    var favoriteid=$(this).attr("id");
+                                    $.get("user/FindLoginUser.do",{},function (data) {
+                                        if(data){
+                                            $.get("favorite/addFavorite.do",{goodsID:goodsInCart.goods.goodsID,item:goodsInCart.goods.item,favoriteid:favoriteid},function (data) {
+                                                if(data.flag){
+                                                    //收藏成功
+                                                    alert("收藏成功！！")
+                                                    location.href="/shop_cart.html"
+                                                }else{
+                                                    //收藏失败
+                                                    alert("已收藏过该商品，请刷新后重试！！")
+                                                }
+                                            })
+                                        }else{
+                                            //没有登录
+                                            var flag=window.confirm("用户没有登录，请先登录！！");
+                                            if(flag){
+                                                location.href="/login.html";
+                                            }
+                                        }
+                                    })
+                                })
+                                $("#unFavorite"+i).click(function () {
+                                    $.get("user/FindLoginUser.do",{},function (data) {
+                                        if(data){
+                                            $.post("favorite/removeFavorite.do",{goodsID:goodsInCart.goods.goodsID,item:goodsInCart.goods.item},function (data) {
+                                                if(data.flag){
+                                                    //取消收藏成功
+                                                    alert("取消收藏成功！！")
+                                                    location.href="/shop_cart.html"
+                                                }else{
+                                                    //取消收藏失败
+                                                    alert("取消收藏失败，请重试！！")
+                                                }
+                                            })
+                                        }else{
+                                            //没有登录
+                                            var flag=window.confirm("用户没有登录，请先登录！！");
+                                            if(flag){
+                                                location.href="/login.html";
+                                            }
+                                        }
+                                    })
+                                })
+                            })
+                        })
+                    }
+                    var goodsNumTotal=null;
+                    var goodsPriceTotal=null;
+                    var yufei=null;
+                    for (var i = 0; i < data.data.items.length; i++) {
+                        goodsNumTotal=goodsNumTotal+data.data.items[i].goodsNum;
+                        goodsPriceTotal=goodsPriceTotal+(data.data.items[i].goodsNum*data.data.items[i].goods.price);
+                    }
+                    if(goodsPriceTotal>=0&&goodsPriceTotal<=1000){
+                        yufei=0;
+                    }else if(goodsPriceTotal>1000&&goodsPriceTotal<=2000){
+                        yufei=10;
+                    }else if(goodsPriceTotal>2000&&goodsPriceTotal<=4000){
+                        yufei=20;
+                    }else if(goodsPriceTotal>4000&&goodsPriceTotal<=8000){
+                        yufei=25;
+                    }else if(goodsPriceTotal>8000&&goodsPriceTotal<=12000){
+                        yufei=50;
+                    }else{
+                        yufei=100;
+                    }
+                    var goods_NumAndPrice='<div class="goods_NumAndPrice">\n' +
+                        '                <p>\n' +
+                        '                    <span class="goods_totalprice">'+goodsNumTotal+'件商品，商品金额：</span>\n' +
+                        '                    <span id="payAmount0">￥'+goodsPriceTotal.toFixed(2)+'</span>\n' +
+                        '                </p>\n' +
+                        '                <p>\n' +
+                        '                    <span class="goods_yufei">运费：</span>\n' +
+                        '                    <span id="yufei">-￥'+yufei.toFixed(2)+'</span>\n' +
+                        '                </p>\n' +
+                        '            </div>'
+                    $("#shop_content").append(goods_NumAndPrice);
+                    var shopping_total_right='<div class="shopping_total_right">\n' +
+                        '                <a class="total_btn fn-checkout" href="javascript:;" id="checkout_btn" dd_name="结算">结&nbsp;&nbsp;算</a>\n' +
+                        '                <div class="subtotal">\n' +
+                        '                    <p>\n' +
+                        '                        <span class="cartsum">总计(不含运费)：</span>\n' +
+                        '                        <span id="payAmount1" class="price">￥'+goodsPriceTotal.toFixed(2)+'</span>\n' +
+                        '                    </p>\n' +
+                        '                </div>\n' +
+                        '            </div>'
+                    $("#shop_content").append(shopping_total_right);
+                }else{
+                    $.get("user/FindLoginUser.do",{},function (data) {
+                        if(data){
+                            $("#cart_screenhead").remove();
+                            var kongCart='<div class="empty" id="empty" style="">\n' +
+                                '            <p>您的购物车还是空的，您可以：</p>\n' +
+                                '            <div class="empty_content">\n' +
+                                '                <a href="/index.html" class="btn" style="margin-left: -195px">去逛逛</a>\n' +
+                                '            </div>\n' +
+                                '        </div>'
+                            $("#shop_content").append(kongCart);
+                            $("#footer").remove();
+                        }else {
+                            $("#cart_screenhead").remove();
+                            var kongCart='<div class="empty" id="empty" style="">\n' +
+                                '            <p>您的购物车还是空的，您可以：</p>\n' +
+                                '            <div class="empty_content">\n' +
+                                '                <a href="/login.html" class="btn">立即登录</a>\n' +
+                                '                <div>登录后购物车的商品将保存到您的账号中，或者<a href="/index.html">去逛逛</a></div>\n' +
+                                '            </div>\n' +
+                                '        </div>'
+                            $("#shop_content").append(kongCart);
+                            $("#footer").remove();
+                        }
+                    })
+                }
+                var goodsNumTotal=0;
+                var goodsPriceTotal=0;
+                var yufei=0;
+                if(data.flag){
+                    for(var i=0;i<data.data.items.length;i++){
+                        NumTotal=data.data.items[i].goodsNum;
+                        goodsNumTotal=goodsNumTotal+NumTotal;
+                        goodsPriceTotal=goodsPriceTotal+(NumTotal*data.data.items[i].goods.price);
+                        $("#num_jia"+i).click(function () {
+                            var id=$(this).attr("id").substring(7,8);
+                            var input_num=$("#input_num"+id).val();
+                            var p=$("#goodsOnePrice"+id).text().length;
+                            var Price=$("#goodsOnePrice"+id).text().substring(1,p);
+                            goodsPriceTotal=parseInt(goodsPriceTotal)+parseInt(Price)
+                            goodsNumTotal=parseInt(goodsNumTotal)+parseInt(1);
+                            $(".goods_totalprice").html("")
+                            $(".goods_totalprice").html(goodsNumTotal+"件商品，商品金额：");
+                            $("#payAmount0").html("")
+                            $("#payAmount0").html("￥"+goodsPriceTotal.toFixed(2))
+                            $("#payAmount1").html("")
+                            $("#payAmount1").html("￥"+goodsPriceTotal.toFixed(2))
+                            if(goodsPriceTotal>=0&&goodsPriceTotal<=1000){
+                                yufei=0;
+                            }else if(goodsPriceTotal>1000&&goodsPriceTotal<=2000){
+                                yufei=10;
+                            }else if(goodsPriceTotal>2000&&goodsPriceTotal<=4000){
+                                yufei=20;
+                            }else if(goodsPriceTotal>4000&&goodsPriceTotal<=8000){
+                                yufei=25;
+                            }else if(goodsPriceTotal>8000&&goodsPriceTotal<=12000){
+                                yufei=50;
+                            }else{
+                                yufei=100;
+                            }
+                            $("#yufei").html("")
+                            $("#yufei").html("-￥"+yufei.toFixed(2))
+                        })
+                        $("#num_jian"+i).click(function () {
+                            var id=$(this).attr("id").substring(8,9);
+                            var input_num=parseInt($("#input_num"+id).val());
+                            var p=$("#goodsOnePrice"+id).text().length;
+                            var Price=$("#goodsOnePrice"+id).text().substring(1,p);
+                            if((typeof input_num === 'number' || input_num.test(/^\d+$/)) && input_num > 0){
+                                goodsNumTotal=parseInt(goodsNumTotal)-parseInt(1);
+                                goodsPriceTotal=parseInt(goodsPriceTotal)-parseInt(Price)
+                            }
+                            if(goodsNumTotal<=0){
+                                goodsNumTotal=0;
+                            }
+                            if(input_num==0){
+                                $("#input_num"+id).attr("value",1)
+                                $("#dianpuPrice"+id).html("")
+                                $("#goodsTotalPrice"+id).html("")
+                                $("#dianpuPrice"+id).html("￥"+(data.data.items[id].goods.price*1).toFixed(2))
+                                $("#goodsTotalPrice"+id).html("￥"+(data.data.items[id].goods.price*1).toFixed(2))
+                            }
+                            $(".goods_totalprice").html("")
+                            $(".goods_totalprice").html(goodsNumTotal+"件商品，商品金额：");
+                            $("#payAmount0").html("")
+                            $("#payAmount0").html("￥"+goodsPriceTotal.toFixed(2))
+                            $("#payAmount1").html("")
+                            $("#payAmount1").html("￥"+goodsPriceTotal.toFixed(2))
+                            if(goodsPriceTotal>=0&&goodsPriceTotal<=1000){
+                                yufei=0;
+                            }else if(goodsPriceTotal>1000&&goodsPriceTotal<=2000){
+                                yufei=10;
+                            }else if(goodsPriceTotal>2000&&goodsPriceTotal<=4000){
+                                yufei=20;
+                            }else if(goodsPriceTotal>4000&&goodsPriceTotal<=8000){
+                                yufei=25;
+                            }else if(goodsPriceTotal>8000&&goodsPriceTotal<=12000){
+                                yufei=50;
+                            }else{
+                                yufei=100;
+                            }
+                            $("#yufei").html("")
+                            $("#yufei").html("-￥"+yufei.toFixed(2))
+                        })
+                    }
+                }
+                //当用户点击结算时，将购物车中的信息提交至后台更新，然后判读用户是否登录
+                $("#checkout_btn").click(function () {
+                    for(var i=0;i<data.data.items.length;i++){
+                        var input_num=$("#input_num"+i).val();
+                        $.post("cart/updateShopCart.do",{goodsID:data.data.items[i].goods.goodsID,item:data.data.items[i].goods.item,goodsNum:input_num},function (data) {
+
+                        })
+                    }
+                    $.get("user/FindLoginUser.do",{},function (data) {
+                        if (data) {
+                            location.href="/orderconfirm.html"
+                        }else{
+                            alert("您还没有登录，请先登录之后再结算！")
+                            location.href="/login.html"
+                        }
+                    })
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+    <div class="cart_screen">
+        <div class="cart_screenhead" id="cart_screenhead">
+            <span class="current">我的购物车</span>
+            <span>填写订单</span>
+            <span>完成订单</span>
+        </div>
+        <div class="shop_content" id="shop_content">
+            <!--<ul class="shop_title">
+                <li class="f1">
+                    <a id="j_selectall" href="javascript:void(0)" class="checknow fn-checkall check_on" dd_name="全选">选中</a>全选
+                </li>
+                <li class="f2">商品信息</li>
+                <li class="f3">单价（元）</li>
+                <li class="f4">数量</li>
+                <li class="f4">金额（元）</li>
+                <li class="f5">操作</li>
+            </ul>
+            <div id="goodsfactory">
+                <a href="http://shop.dangdang.com/8542" target="_blank">良品铺子旗舰店</a>
+            </div>
+            <div class="shop_contentmsg">
+                <table>
+                    <tbody>
+                        <tr class="bb_none">
+                            <td class="row1">
+                                <a href="javascript:void(0)" data-item="887200145" class="fn-product-check checknow">选中</a>
+                            </td>
+                            <td class="row_img">
+                                <a href="http://product.dangdang.com/1195009835.html" target="_blank" dd_name="查看详情"> <img src="http://img3x5.ddimg.cn/41/4/1195009835-1_m_193.jpg" height="80" width="80"> </a>
+                            </td>
+                            <td class="row_name">
+                                <div class="name">
+                                    <a href="http://product.dangdang.com/1195009835.html" title="【领券满300减215】【三只松鼠_芒果干116g】蜜饯果脯水果干" target="_blank" dd_name="查看详情">
+                                        【领券满300减215 三只松鼠_芒果干116g】蜜饯果脯水果干
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="row3">
+                                <span>¥27.90</span>
+                            </td>
+                            <td data-minbuy="0" class="fn-count-tip row3 ">
+                                <span class="amount fn-updatecount " data-value="1">
+                                    <a dd_name="减少数量" href="javascript:void(0)">-</a>
+                                    <input data-value="1" value="1" type="text">
+                                    <a dd_name="增加数量" href="javascript:void(0)">+</a>
+                                </span>
+                            </td>
+                            <td class="row4">
+                                <span class="red">¥0.00</span>
+                            </td>
+                            <td class="row5 ">
+                                <span>
+                                    <a href="javascript:void(0)" dd_name="加入收藏按钮">移入收藏</a>
+                                </span>
+                                <span>
+                                    <a href="javascript:void(0)" dd_name="删除普通品">删除</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total">
+                            <td class="row1">&nbsp;</td>
+                            <td class="row_img">店铺合计</td>
+                            <td colspan="2">&nbsp;</td>
+                            <td colspan="3" class="row4"><span class="red big ooline alignright">¥0.00</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>-->
+            <!--<div>
+                <a href="http://shop.dangdang.com/8542" target="_blank">良品铺子旗舰店</a>
+            </div>
+            <div class="shop_contentmsg">
+                <table>
+                    <tbody>
+                    <tr class="bb_none">
+                        <td class="row1">
+                            <a href="javascript:void(0)" data-item="887200145" class="fn-product-check checknow">选中</a>
+                        </td>
+                        <td class="row_img">
+                            <a href="http://product.dangdang.com/1195009835.html" target="_blank" dd_name="查看详情"> <img src="http://img3x5.ddimg.cn/41/4/1195009835-1_m_193.jpg" height="80" width="80"> </a>
+                        </td>
+                        <td class="row_name">
+                            <div class="name">
+                                <a href="http://product.dangdang.com/1195009835.html" title="【领券满300减215】【三只松鼠_芒果干116g】蜜饯果脯水果干" target="_blank" dd_name="查看详情">
+                                    【领券满300减215 三只松鼠_芒果干116g】蜜饯果脯水果干
+                                </a>
+                            </div>
+                        </td>
+                        <td class="row3">
+                            <span>¥27.90</span>
+                        </td>
+                        <td data-minbuy="0" class="fn-count-tip row3 ">
+                                <span class="amount fn-updatecount " data-value="1">
+                                    <a dd_name="减少数量" href="javascript:void(0)">-</a>
+                                    <input data-value="1" value="1" type="text">
+                                    <a dd_name="增加数量" href="javascript:void(0)">+</a>
+                                </span>
+                        </td>
+                        <td class="row4">
+                            <span class="red">¥0.00</span>
+                        </td>
+                        <td class="row5 ">
+                                <span>
+                                    <a href="javascript:void(0)" dd_name="加入收藏按钮">移入收藏</a>
+                                </span>
+                            <span>
+                                    <a href="javascript:void(0)" dd_name="删除普通品">删除</a>
+                                </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr class="total">
+                        <td class="row1">&nbsp;</td>
+                        <td class="row_img">店铺合计</td>
+                        <td colspan="2">&nbsp;</td>
+                        <td colspan="3" class="row4"><span class="red big ooline alignright">¥0.00</span></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>-->
+            <!--<div class="goods_NumAndPrice">
+                <p>
+                    <span class="goods_totalprice">2件商品，商品金额：</span>
+                    <span>￥100.00</span>
+                </p>
+                <p>
+                    <span class="goods_yufei">运费：</span>
+                    <span>-￥0.00</span>
+                </p>
+            </div>
+            <div class="shopping_total_right">
+                <a class="total_btn fn-checkout" href="javascript:;" id="checkout_btn" dd_name="结算">结&nbsp;&nbsp;算</a>
+                <div class="subtotal">
+                    <p>
+                        <span class="cartsum">总计(不含运费)：</span>
+                        <span id="payAmount" class="price">¥32.90</span>
+                    </p>
+                </div>
+            </div>-->
+        </div>
+    </div>
+<div id="footer"></div>
+</body>
+</html>

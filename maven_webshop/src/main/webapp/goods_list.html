@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>网上商城-分页商品展示</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/shop/shop_list.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script src="js/getParameter.js"></script>
+    <script type="text/javascript" src="js/include.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        var price = getParameter("price");
+        var goodsID = getParameter("goodsID");
+        var word=getParameter("wd");
+        var currentPage = 1;
+        var pageSize = 8;
+        //乱码问题解决 %E4%B8%BD%E6%B1%9F
+        word=window.decodeURIComponent(word);
+
+        function loadList(goodsID, currentPage, pageSize) {
+            $.get("goods/findPage.do",{goodsID: goodsID, currentPage: currentPage, pageSize: pageSize,wd: word,price:price}, function (data) {
+
+                $("#price_asc").click(function () {
+                    location.href="goods_list.html?wd="+word+"&&goodsID="+goods.goodsID+"&&price=price_asc";
+                })
+
+                $("#one_title").html('"'+data.list[0].typeName+'"')
+                $("#totalPage").html(data.totalPage)
+                $("#totalCount").html(data.totalCount)
+                $("#goods").html("")
+                for (var i = 0; i < data.list.length; i++) {
+                    var goods = data.list[i];
+                    //判断用户是否已经收藏了此产品
+                    $.get("favorite/isFavorite.do",{goodsID:goods.goodsID,item:goods.item},function (result) {
+                        if(result.flag){
+                            var div_goods = '<div class="col-md-3">\n' +
+                                                '<div class="img-thumbnail">\n'+
+                                                    '<a href="goods_detail.html?item='+result.goods.item+'&&goodsID='+result.goods.goodsID+'">\n'+
+                                                        '<img src="'+result.goods.imgsrc+'" alt="">\n'+
+                                                        '<div class="detail_msg">\n'+
+                                                            '<div  class="price">￥<strong>'+result.goods.price.toFixed(2)+'</strong></div>\n'+
+                                                            '<span class="desc">'+result.goods.goodsName+'</span>\n'+
+                                                            '<div class="eval">\n'+
+                                                                '已被收藏<span class="evalCount" id="evalCount'+i+'">'+result.count+'</span>次\n'+
+                                                            '</div>\n'+
+                                                            '<span class="factory">'+result.goods.factory+'</span>\n'+
+                                                        '</div>\n'+
+                                                    '</a>\n'+
+                                                    '<div class="cagetory_detail_btn">\n'+
+                                                        '<div class="btn_insertcart" id="btn_insertcart'+result.goods.item+'">加入购物车</div>\n' +
+                                                        '<a class="remove_btnrank" id="unFavorite'+result.goods.item+'">取消收藏</a>\n'+
+                                                    '</div>\n'+
+                                                '</div>\n'+
+                                            '</div>\n'
+                            $("#goods").append(div_goods)
+                        }else{
+                            var div_goods = '<div class="col-md-3">\n' +
+                                                '<div class="img-thumbnail">\n'+
+                                                    '<a href="goods_detail.html?item='+result.goods.item+'&&goodsID='+result.goods.goodsID+'">\n'+
+                                                        '<img src="'+result.goods.imgsrc+'" alt="">\n'+
+                                                        '<div class="detail_msg">\n'+
+                                                            '<div  class="price">￥<strong>'+result.goods.price.toFixed(2)+'</strong></div>\n'+
+                                                            '<span class="desc">'+result.goods.goodsName+'</span>\n'+
+                                                            '<div class="eval">\n'+
+                                                                '已被收藏<span class="evalCount" id="evalCount'+i+'">'+result.count+'</span>次\n'+
+                                                            '</div>\n'+
+                                                            '<span class="factory">'+result.goods.factory+'</span>\n'+
+                                                        '</div>\n'+
+                                                    '</a>\n'+
+                                                    '<div class="cagetory_detail_btn">\n'+
+                                                        '<div class="btn_insertcart"id="btn_insertcart'+result.goods.item+'">加入购物车</div>\n' +
+                                                        '<a class="add_btnrank" id="favorite'+result.goods.item+'">添加收藏</a>\n'+
+                                                    '</div>\n'+
+                                                '</div>\n'+
+                                            '</div>\n'
+                            $("#goods").append(div_goods)
+                        }
+                        $("#unFavorite"+result.goods.item).click(function () {
+                            $.post("favorite/removeFavorite.do",{goodsID:result.goods.goodsID,item:result.goods.item},function (data) {
+                                if(data.flag){
+                                    //收藏成功
+                                    alert("取消收藏成功！！")
+                                    loadList(result.goods.goodsID,currentPage, pageSize);
+                                }else{
+                                    //收藏失败
+                                    alert("取消收藏失败，请重试！！")
+                                    loadList(result.goods.goodsID,currentPage, pageSize);
+                                }
+                            })
+                        })
+                        $("#favorite"+result.goods.item).click(function () {
+                            $.post("favorite/addFavorite.do",{goodsID:result.goods.goodsID,item:result.goods.item},function (data) {
+                                if(data.flag){
+                                    //收藏成功
+                                    alert("收藏成功！！")
+                                    loadList(result.goods.goodsID,currentPage, pageSize);
+                                }else{
+                                    //收藏失败
+                                    alert("收藏失败，请重试！！")
+                                    loadList(result.goods.goodsID,currentPage, pageSize);
+                                }
+                            })
+                        })
+                        /*登录状态下的点击添加至购物车*/
+                        $("#btn_insertcart"+result.goods.item).click(function () {
+                            $.post("cart/addShopCart.do",{goodsID:result.goods.goodsID,item:result.goods.item,goodsNum:1},function (data) {
+                                if(data.flag){
+                                    //添加商品至购物车成功
+                                    var flag=window.confirm("商品已成功添加至购物车，去购物车结算？？");
+                                    if(flag){
+                                        location.href="shop_cart.html";
+                                    }
+                                }else{
+                                    alert("商品添加失败，请重试！！！")
+                                }
+                            })
+                        })
+                    })
+                }
+
+                $("#pageNum").html("")
+
+                if (currentPage > 1) {
+                    var li = "<li><a href='javascript:loadList(&quot;" + goodsID + "&quot;,1," + pageSize + ")'>首页</a></li>"
+                    $("#pageNum").append(li);
+                    li = "<li class='threeword'><a href='javascript:loadList(&quot;" + goodsID + "&quot;," + (currentPage - 1) + "," + pageSize + ")'>上一页</a></li>"
+                    $("#pageNum").append(li);
+                }
+
+                var start = data.currentPage - 5;
+                var end = data.currentPage + 4;
+
+                if (data.totalPage <= 10) {
+                    start = 1;
+                    end = data.totalPage
+                } else if (start < 1) {
+                    start = 1;
+                    end = start + 9;
+                } else if (end > data.totalPage) {
+                    end = data.totalPage;
+                    start = end - 9;
+                }
+
+                for (var i = start; i <= end; i++) {
+                    if (data.currentPage == i) {
+                        li = '<li class="curPage"><a href="#">' + i + '</a></li>'
+                    } else {
+                        li = '<li ><a href="javaScript:loadList(&quot;' + goodsID + '&quot;,' + i + ',' + pageSize + ')">' + i + '</a></li>'
+                    }
+                    $("#pageNum").append(li);
+                }
+                if (currentPage < data.totalPage) {
+                    li = '<li class="threeword"><a href="javaScript:loadList(&quot;' + goodsID + '&quot;,' + (currentPage + 1) + ',' + pageSize + ');">下一页</a></li>';
+                    $("#pageNum").append(li);
+                    li = '<li class="threeword"><a href="javaScript:loadList(&quot;' + goodsID + '&quot;,' + data.totalPage + ',' + pageSize + ')">末页</a></li>';
+                    $("#pageNum").append(li);
+                }
+                window.scrollTo(0,0);
+            })
+        }
+        function load(goodsID, currentPage, pageSize) {
+            $.get("goods/findPage.do",{goodsID: goodsID, currentPage: currentPage, pageSize: pageSize,wd: word,price:price}, function (data) {
+                $("#price_asc").click(function () {
+                    location.href="goods_list.html?wd="+word+"&&goodsID="+goods.goodsID+"&&price=price_asc";
+                })
+
+                $("#one_title").html('"'+data.list[0].typeName+'"')
+                $("#totalPage").html(data.totalPage)
+                $("#totalCount").html(data.totalCount)
+                $("#goods").html("")
+                for (var i = 0; i < data.list.length; i++) {
+                    var goods = data.list[i];
+                    //获取产品的收藏次数
+                    $.get("favorite/favoriteCount.do",{goodsID:goods.goodsID,item:goods.item},function (result) {
+                        var div_goods = '<div class="col-md-3">\n' +
+                                            '<div class="img-thumbnail">\n'+
+                                                '<a href="goods_detail.html?item='+result.goods.item+'&&goodsID='+result.goods.goodsID+'">\n'+
+                                                    '<img src="'+result.goods.imgsrc+'" alt="">\n'+
+                                                    '<div class="detail_msg">\n'+
+                                                        '<div  class="price">￥<strong>'+result.goods.price.toFixed(2)+'</strong></div>\n'+
+                                                        '<span class="desc">'+result.goods.goodsName+'</span>\n'+
+                                                        '<div class="eval">\n'+
+                                                            '已被收藏<span class="evalCount" id="evalCount'+i+'">'+result.count+'</span>次\n'+
+                                                        '</div>\n'+
+                                                        '<span class="factory">'+result.goods.factory+'</span>\n'+
+                                                    '</div>\n'+
+                                                '</a>\n'+
+                                            '<div class="cagetory_detail_btn">\n'+
+                                                '<div class="btn_insertcart" id="btn_insertcart'+result.goods.item+'">加入购物车</div>\n' +
+                                                    '<a class="remove_btnrank" id="favorite'+result.goods.item+'">添加收藏</a>\n'+
+                                                '</div>\n'+
+                                            '</div>\n'+
+                                        '</div>\n'
+                        $("#goods").append(div_goods)
+
+                        /*没登录状态下的点击收藏*/
+                        $("#favorite"+result.goods.item).click(function () {
+                            //没有登录
+                            var flag=window.confirm("用户没有登录，请先登录！！");
+                            if(flag){
+                                location.href="login.html";
+                            }
+                        })
+                        /*没登录状态下的点击添加至购物车*/
+                        $("#btn_insertcart"+result.goods.item).click(function () {
+                            $.post("cart/addShopCart.do",{goodsID:result.goods.goodsID,item:result.goods.item,goodsNum:1},function (data) {
+                                if(data.flag){
+                                    //添加商品至购物车成功
+                                    var flag=window.confirm("商品已成功添加至购物车，去购物车结算？？");
+                                    if(flag){
+                                        location.href="shop_cart.html";
+                                    }
+                                }else{
+                                    alert("商品添加失败，请重试！！！")
+                                }
+                            })
+                        })
+                    })
+                }
+
+                $("#pageNum").html("")
+
+                if (currentPage > 1) {
+                    var li = "<li><a href='javascript:load(&quot;" + goodsID + "&quot;,1," + pageSize + ")'>首页</a></li>"
+                    $("#pageNum").append(li);
+                    li = "<li class='threeword'><a href='javascript:load(&quot;" + goodsID + "&quot;," + (currentPage - 1) + "," + pageSize + ")'>上一页</a></li>"
+                    $("#pageNum").append(li);
+                }
+
+                var start = data.currentPage - 5;
+                var end = data.currentPage + 4;
+
+                if (data.totalPage <= 10) {
+                    start = 1;
+                    end = data.totalPage
+                } else if (start < 1) {
+                    start = 1;
+                    end = start + 9;
+                } else if (end > data.totalPage) {
+                    end = data.totalPage;
+                    start = end - 9;
+                }
+
+                for (var i = start; i <= end; i++) {
+                    if (data.currentPage == i) {
+                        li = '<li class="curPage"><a href="#">' + i + '</a></li>'
+                    } else {
+                        li = '<li ><a href="javaScript:load(&quot;' + goodsID + '&quot;,' + i + ',' + pageSize + ')">' + i + '</a></li>'
+                    }
+                    $("#pageNum").append(li);
+                }
+                if (currentPage < data.totalPage) {
+                    li = '<li class="threeword"><a href="javaScript:load(&quot;' + goodsID + '&quot;,' + (currentPage + 1) + ',' + pageSize + ');">下一页</a></li>';
+                    $("#pageNum").append(li);
+                    li = '<li class="threeword"><a href="javaScript:load(&quot;' + goodsID + '&quot;,' + data.totalPage + ',' + pageSize + ')">末页</a></li>';
+                    $("#pageNum").append(li);
+                }
+                window.scrollTo(0,0);
+            })
+        }
+        $(function () {
+            var islogin=false;
+            /*判断用户是否已经登录的状态*/
+            $.get("user/FindLoginUser.do",{},function (LoginUser) {
+                if(LoginUser){
+                    islogin=true;
+                    loadList(goodsID, currentPage, pageSize);
+                }else{
+                    load(goodsID, currentPage, pageSize);
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <!--引入头部-->
+    <div id="header"></div>
+    <div class="container">
+        <!--第一部分-->
+        <div class="page_top">
+            <ul>
+                <li>
+                    <a href="javascript:void(0)">所有商品</a>
+                </li>
+            </ul>
+        </div>
+        <div class="page_body">
+            <div class="page_two">
+                <div class="all_result">
+                    <a href="javascript:void(0)">全部结果</a>
+                </div>
+                <i class="right_jiantou">></i>
+                <div class="search_title">
+                    <strong id="one_title"></strong>
+                </div>
+            </div>
+            <div class="page_three">
+                <ul class="sorting_box">
+                    <li class="sort_one">
+                        <a href="javascript:void(0)" style="text-decoration: none">综合排序</a>
+                    </li>
+                    <li class="sort_two">
+                        <a href="javascript:void(0)" style="text-decoration: none">销量↓</a>
+                    </li>
+                    <li class="sort_five">
+                        <a href="javascript:void(0)" style="text-decoration: none">信用</a>
+                    </li>
+                    <li class="sort_three">
+                        <a href="javascript:void(0)" style="text-decoration: none">好评↑</a>
+                    </li>
+                    <li class="sort_four">
+                        <a href="javascript:void(0)" style="text-decoration: none">最新↓</a>
+                    </li>
+                    <li class="sort_five">
+                        <a href="javascript:void(0)" id="price_asc" style="text-decoration: none">价格↑</a>
+                    </li>
+                    <li class="sort_six">
+                        <input title="最低价" class="text" value="" name="low_price" id="input_lowprice" type="text" placeholder="￥">
+                        <span>&nbsp;-&nbsp;</span>
+                        <input title="最高价" class="text" value="" name="high_price" id="input_highprice" type="text" placeholder="￥">
+                    </li>
+                    <li class="sort_seven">
+                        <a href="#">配送至：</a>
+                        <span class="d">湖南</span>
+                    </li>
+                    <div class="sort_eight">
+                        <div class="page_num_inf">
+                            共<span id="totalPage"></span>页<span id="totalCount"></span>条
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="page_four">
+                <div id="goods" class="cagetory_detail">
+                    <!--<div class="col-md-3">
+                        <div class="img-thumbnail">
+                            <a href="route_detail.html?item='+goods.item+'">
+                                <img src="img/dianqi/small/kongtiao1.png" alt="">
+                                <div class="detail_msg">
+                                    <div  class="price">￥<strong>3399.00</strong></div>
+                                    <span class="desc">格力 润典变频KFR-26GW/(26594)FN</span>
+                                    <div class="eval">
+                                        <span class="evalnum">596万+</span>条评价
+                                    </div>
+                                    <span class="factory">润心家电专营店</span>
+                                </div>
+                            </a>
+                            <div class="cagetory_detail_btn">
+                                <div class="btn_insertcart">
+                                    加入购物车
+                                </div>
+                                <div class="btn_rank">
+                                    添加收藏
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="pageNum">
+                    <ul id="pageNum">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--引入尾部-->
+    <div id="footer"></div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+/*顶部：第一个模块的css样式*/
+.page_top{
+    margin-top: 15px;
+    height: 38px;
+    border-bottom: 2px solid #f40;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+.page_top ul{
+    font-size: 16px;
+    font-family: tahoma,arial,'Hiragino Sans GB','Microsoft Yahei',sans-serif;
+}
+.page_top ul li{
+    float: left;
+    line-height: 38px;
+    width: 504px;
+}
+.page_top ul li a{
+    display: inline-block;
+    font-size: 16px;
+    width: 104px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    background-color: #f40;
+    color: #fff;
+    border-radius: 2px;
+    text-decoration: none;
+}
+/*主体模块的css样式*/
+.page_body{
+    width: 90%;
+    margin:0 auto;
+}
+/*第二个模块的css样式*/
+.page_two{
+    margin-left: 15px;
+    padding-top: 15px;
+    height: 29px;
+    width: 100%;
+}
+.page_two .all_result a{
+    color: #666;
+    font-family: "Helvetica Neue","Hiragino Sans GB",SimSun,serif;
+    text-decoration: none;
+    line-height: 29px;
+    font-size: 13.5px;
+    float: left;
+}
+.page_two .right_jiantou{
+    float: left;
+    margin-left: 6px;
+    font-family: "Helvetica Neue","Hiragino Sans GB",SimSun,serif;
+    font-style: normal;
+    line-height: 29px;
+}
+.page_two .search_title{
+    float: left;
+}
+.page_two .search_title strong{
+    margin-left: 10px;
+    height: 29px;
+    font-size: 13px;
+    line-height: 27px;
+}
+/*第三个模块css样式设计*/
+.page_three{
+    margin-top: 25px;
+    height: 30px;
+    border: solid 1px #efefef;
+    line-height: 30px;
+    background-color: #f5f5f5;
+}
+.page_three .sorting_box{
+    float: left;
+    margin-left: 8px;
+    width: 100%;
+}
+.page_three .sorting_box li{
+    float: left;
+    height: 28px;
+    border-right: 1px solid #E6E6E6;
+}
+.page_three .sorting_box .sort_one{
+    width: 68px;
+    text-align: center;
+}
+.page_three .sorting_box .sort_two{
+    width: 56px;
+    text-align: center;
+}
+.page_three .sorting_box .sort_three{
+    width: 56px;
+    text-align: center;
+}
+.page_three .sorting_box .sort_four{
+    width: 56px;
+    text-align: center;
+}
+.page_three .sorting_box .sort_five{
+    width: 56px;
+    text-align: center;
+}
+.page_three .sorting_box .sort_six{
+    width: 130px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.page_three .sorting_box .sort_six input{
+    width: 49px;
+    height: 24px;
+}
+.page_three .sorting_box .sort_seven{
+    width: 126px;
+    text-align: center;
+}
+.page_three .sorting_box .sort_seven span{
+    cursor: pointer;
+    height: 22px;
+    line-height: 22px;
+    border: 1px solid #E1E1E1;
+    padding: 0px 2px 0px 0px;
+    background: #FFF;
+    display: inline-block;
+    width: 58px;
+    color: #666;
+}
+.page_three .sorting_box .sort_eight{
+    float: right;
+    width: 104px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+}
+.page_three .page_num_inf{
+    float: right;
+    margin-right: 20px;
+    line-height: 28px;
+    font-family: "Helvetica Neue","Hiragino Sans GB",SimSun,serif;
+    font-style: normal;
+}
+/*第四个模块css样式*/
+.page_four{
+    width: 100%;
+    margin-top: 20px;
+}
+.page_four .cagetory_detail .col-md-3{
+    margin-bottom: 35px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a{
+    text-decoration: none;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a img{
+    width: 208px;
+    height: 208px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a .detail_msg .price{
+    color: #646464;
+    display: inline-block;
+    overflow: hidden;
+    height: 22px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 150px;
+    color: #e4393c;
+    font-size: 18px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a .detail_msg .desc{
+    font: 12px/150% tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;
+    display:block;
+    margin-left: 7px;
+    color: black;
+    width: 200px;
+    /*设置文本超过固定长度会显示省略号*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a .detail_msg .eval{
+    margin-left: 7px;
+    margin-top: 5px;
+    color: #a7a7a7;
+    font-weight: 400;
+    font-size: 13px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a .detail_msg .eval .evalCount{
+    color: #646fb0;
+    font-family: verdana;
+    font-weight: 600;
+    font-size: 13px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail a .detail_msg .factory{
+    color: #646464;
+    display: inline-block;
+    overflow: hidden;
+    height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 5px;
+    margin-left: 7px;
+    width: 150px;
+    font-size: 12px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail .cagetory_detail_btn{
+    width: 100%;
+    height: 35px;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail .cagetory_detail_btn .btn_insertcart{
+    float: left;
+    width: 50%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-right: 1px solid #E6E6E6;
+    border-top: 1px solid #E6E6E6;
+    color: red;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail .cagetory_detail_btn .add_btnrank{
+    float: left;
+    width: 50%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-top: 1px solid #E6E6E6;
+}
+.page_four .cagetory_detail .col-md-3 .img-thumbnail .cagetory_detail_btn .remove_btnrank{
+    float: left;
+    width: 50%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-top: 1px solid #E6E6E6;
+}
+

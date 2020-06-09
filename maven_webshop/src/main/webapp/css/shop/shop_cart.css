@@ -1,0 +1,309 @@
+/*整体页面布局*/
+.cart_screen{
+    background-color: white;
+    width: 960px;
+    margin: 0px auto;
+    overflow:hidden
+}
+/*头部页面布局*/
+.cart_screen .cart_screenhead{
+    float: right;
+    width: 634px;
+    height: 36px;
+    background: url("../../images/cart/procedure_bg.png") no-repeat scroll 0px 0px transparent;
+    font: bold 14px/36px "Microsoft Yahei";
+    color: #646464;
+    margin: 30px 0px 0px;
+}
+.current{
+    color: #FFF;
+    width: 206px;
+    display: inline-block;
+    text-align: center;
+}
+.cart_screenhead span{
+    width: 208px;
+    display: inline-block;
+    text-align: center;
+}
+/*购物信息头*/
+.shop_content{
+    width: 100%;
+    margin: 0px auto;
+    overflow:hidden;
+}
+.shop_title{
+    line-height: 36px;
+    height: 36px;
+    margin-top: 30px;
+    background-color: #FAFAFA;
+    margin-bottom: 20px;
+}
+.shop_title li{
+    float: left;
+    text-align: center;
+}
+.shop_title .f1{
+    text-align: left;
+    width: 202px;
+}
+.shop_title .f2 {
+    text-align: left;
+    width: 280px;
+}
+.shop_title .f3 {
+    width: 130px;
+}
+.shop_title .f4 {
+    width: 130px;
+}
+.shop_title .f5 {
+    width: 88px;
+}
+a.checknow {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #BCBCBC;
+    background-color: #FFF;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 0px;
+    line-height: 0px;
+    overflow: hidden;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.shop_contentmsg{
+    width: 960px;
+    border: 1px solid #EBEBEB;
+    background-color: #FAFAFA;
+    margin-bottom: 40px;
+}
+.shop_contentmsg td {
+    vertical-align: top;
+    padding-top: 15px;
+    position: relative;
+    line-height: 22px;
+    text-align: center;
+    border-bottom: 1px solid #E4E4E4;
+}
+.shop_contentmsg .bb_none td{
+    border-bottom: 0px none;
+}
+.shop_contentmsg .row1{
+    padding: 0px 0px 0px 10px;
+    width: 42px;
+    vertical-align: middle;
+}
+.shop_contentmsg .row_img {
+    padding: 20px 20px 20px 0px;
+    width: 80px;
+    border-bottom: 0px none;
+    position: relative;
+    z-index: 9;
+    font-size: 0px;
+    line-height: 0;
+}
+.shop_contentmsg .row_name {
+    width: 330px;
+    line-height: 18px;
+    text-align: left;
+    position: relative;
+    padding-top: 17px;
+}
+.shop_contentmsg .row_name .name {
+    display: block;
+    width: 100%;
+    height: 36px;
+    overflow: hidden;
+    margin-bottom: 27px;
+}
+.shop_contentmsg .row_name .name a {
+    color: #323232;
+    font-family: "Microsoft Yahei","Hiragino Sans GB","Simsun","Arial";
+    font-size: 12px;
+}
+.shop_contentmsg .row3 {
+    width: 135px;
+    vertical-align: top;
+}
+.shop_contentmsg td span {
+    display: block;
+}
+.shop_contentmsg .amount {
+    border: 1px solid #DCDCDC;
+    height: 28px;
+    width: 94px;
+    line-height: 28px;
+    font-size: 14px;
+    margin: 5px auto;
+    overflow: hidden;
+}
+.shop_contentmsg .amount a {
+    display: block;
+    float: left;
+    height: 28px;
+    width: 28px;
+    background-color: #F4F4F4;
+}
+a:link, a:visited {
+    text-decoration: none;
+}
+.shop_contentmsg .amount input {
+    width: 36px;
+    height: 28px;
+    float: left;
+    padding: 0px;
+    text-align: center;
+    border-style: solid;
+    border-color: #DCDCDC;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-width: 0px 1px;
+    background-color: #FFF;
+    font-weight: bold;
+}
+.shop_contentmsg .row4 {
+    width: 130px;
+}
+.shop_contentmsg td .red {
+    color: #FF2832;
+}
+.shop_contentmsg .row5 {
+    width: 88px;
+}
+/*tfootcss样式*/
+tfoot{
+    width: 100%;
+}
+.shop_contentmsg .total td {
+    border-bottom: 0px none;
+    border-top: 1px solid #DCDCDC;
+}
+.shop_contentmsg .row1 {
+    padding: 0px 0px 0px 10px;
+    width: 42px;
+    vertical-align: middle;
+    border-bottom: 0px none;
+}
+.shop_contentmsg .total td.row_img {
+    text-align: center;
+    color: #323232;
+    font-weight: bold;
+    line-height: 22px;
+    font-size: 12px;
+    padding: 15px 20px 15px 0px;
+}
+.shop_contentmsg .total td {
+    border-bottom: 0px none;
+    border-top: 1px solid #DCDCDC;
+}
+.shop_contentmsg .total td.row4 {
+    text-align: right;
+    line-height: 18px;
+    position: relative;
+}
+tfoot .shop_contentmsg .row4 {
+    width: 130px;
+    color: #323232;
+}
+.shop_contentmsg .total td.row4 .big.ooline {
+    padding-top: 4px;
+}
+.shop_contentmsg .total td.row4 .big {
+    font-size: 16px;
+}
+.shop_contentmsg .total td.row4 .alignright {
+    padding-right: 133px;
+}
+/*商品总价的css布局*/
+.goods_NumAndPrice{
+    float: right;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.goods_NumAndPrice p{
+    text-align: right;
+    height: 25px;
+    line-height: 25px;
+}
+.goods_totalprice{
+    margin-right: 20px;
+}
+.goods_yufei{
+    margin-right: 31px;
+}
+/*商品总数的css布局*/
+.shopping_total_right {
+    float: right;
+    width: 100%;
+    position: relative;
+    background-color: #E6E6E6;
+    margin-bottom: 30px;
+}
+.shopping_total_right .total_btn {
+    float: right;
+    display: block;
+    width: 116px;
+    height: 38px;
+    font: bold 18px/38px "Microsoft Yahei";
+    color: #FFF;
+    background-color: #FF2832;
+    border-radius: 2px;
+    text-align: center;
+}
+.shopping_total_right .subtotal {
+    padding-right: 30px;
+    line-height: 24px;
+    float: right;
+}
+.shopping_total_right .subtotal .cartsum {
+    width: 124px;
+    text-align: right;
+}
+.shopping_total_right .subtotal span {
+    display: inline-block;
+}
+.shopping_total_right .subtotal .price {
+    font-size: 18px;
+    color: #FF2832;
+}
+.cart_screen .empty {
+    margin-top: 15px;
+    padding: 90px 0 0 395px;
+    background: url(../../images/empty.png) 90px 46px no-repeat;
+    height: 280px;
+    font-family: "Microsoft Yahei",'Hiragino Sans GB',"Simsun","Arial";
+    font-size: 12px;
+    color: #969696;
+    line-height: 1;
+}
+.cart_screen .empty p {
+    font-size: 14px;
+    color: #8a8888;
+    float: left;
+}
+.cart_screen .empty a.btn {
+    width: 116px;
+    height: 38px;
+    display: inline-block;
+    background-color: #ff2832;
+    color: #fff;
+    text-align: center;
+    line-height: 27px;
+    font-size: 18px;
+    margin: 30px 20px 0 0;
+    border-radius: 2px;
+    float: left;
+}
+.empty_content{
+    float: left;
+}
+.empty_content div{
+    float: left;
+    margin-top: 42px;
+}

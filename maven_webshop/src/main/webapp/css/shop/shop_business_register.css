@@ -1,0 +1,185 @@
+.rg_background{
+    width: 100%;
+    height:1180px;
+    background-color: #F6F9FB;
+    padding-top: 1px;
+}
+.rg_screen{
+    background-color: white;
+    width: 950px;
+    height: 1117px;
+    margin: 24px auto;
+}
+/*头部Css*/
+.rg_head{
+    height: 74px;
+    border-bottom: solid 1px #ECEEF2;
+    padding-right: 15px;
+    margin: 0 10px;
+}
+.rg_background .rg_screen .rg_head a{
+    text-decoration: none;
+}
+.new_user{
+    position: absolute;
+    margin-top: 1px;
+    background-color: white;
+    width: 135px;
+    height: 47px;
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    border: 1px solid #eceef2;
+    top: 27px;
+    font-size: 16px;
+    line-height: 42px;
+    text-align: center;
+    margin-left: 6px;
+    border-bottom: none;
+}
+.enterprise_user{
+    width: 135px;
+    height: 46px;
+    background-color: #f5f5f5;
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    border: 1px solid #eceef2;
+    top: 27px;
+    font-size: 16px;
+    line-height: 42px;
+    text-align: center;
+    color: #464646;
+    margin-left: 6px;
+    border-bottom:none;
+}
+.sub_head{
+    float: right;
+    color: #646464;
+    line-height: 22px;
+    margin-top: 40px;
+}
+.home{
+    position: absolute;
+    margin-left: -43px;
+}
+/*主体Css*/
+.rg_body{
+    width: 950px;
+    height: 1079px;
+}
+.zhanghu{
+    width: 100%;
+}
+.zhanghu_text1{
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 218px;
+}
+.register_form_one .blank{
+    width: 100%;
+    height: 10px;
+}
+.register_form_two .blank{
+    width: 100%;
+    height: 25px;
+}
+.rgform_left{
+    font-size: 14px;
+    width: 368px;
+    padding-right: 10px;
+    text-align: right;
+    vertical-align: top;
+    color: #646464;
+    padding-top: 8px;
+    font-family: 'Microsoft YaHei';
+}
+.rgform_right{
+    width: 572px;
+    height: 68px;
+    vertical-align: top;
+}
+.rgform_right .text{
+    border: 1px solid #e6e6e6;
+    font-family: 'Microsoft YaHei';
+    height: 38px;
+    width: 312px;
+    margin-right: 10px;
+    margin-top: 0px;
+    padding: 9px 10px;
+    line-height: 38px;
+    border-radius: 2px;
+}
+.rgform_right select{
+    width: 101px;
+    height: 28px;
+    color: rgb(150, 150, 150);
+    font-family: 微软雅黑;
+    margin-top: 5px;
+    padding-left: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(230, 230, 230);
+    border-image: initial;
+}
+.warn{
+    font-size: 12px;
+    color: #f00000;
+    display: block;
+    line-height: 14px;
+    padding: 8px 13px;
+    margin-right: 5px;
+}
+.zhanghu_text2{
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 218px;
+}
+.register_form_two{
+    width:100%;
+}
+.register_form_two .rgform_right .text_pin{
+    border: 1px solid #e6e6e6;
+    font-family: 'Microsoft YaHei';
+    height: 38px;
+    width: 182px;
+    margin-right: 10px;
+    margin-top: 0px;
+    padding: 9px 10px;
+    line-height: 38px;
+    border-radius: 2px;
+}
+.register_form_two .rgform_right .codeimg{
+    width: 84px;
+    height: 37px;
+    margin-left: 190px;
+    margin-top: -38px;
+}
+.register_form_two .rgform_right .changeimg{
+    margin-left: 278px;
+    color: #1a66b3;
+    position: absolute;
+    margin-top: -28px;
+}
+.register_form_two .rgform_right input{
+    vertical-align: middle;
+    margin: -4px 8px 0 0;
+}
+.register_form_two .btn_login{
+    display: inline-block;
+    font-size: 20px;
+    border: 0;
+    width: 312px;
+    height: 44px;
+    line-height: 44px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #ff2832;
+    color: #fff;
+    border-radius: 2px;
+    margin-top: -20px;
+}

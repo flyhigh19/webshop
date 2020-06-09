@@ -1,0 +1,171 @@
+.msg{
+    font-size: 15px;
+    color: #a9a9a9;
+}
+.msg01{
+    font-size: 14px;
+    color: #a9a9a9;
+}
+.goto{
+    /*background: #0f0f0f;*/
+    width: 260px;
+    height: 35px;
+    float: left;
+}
+.welcome{
+    /*background: #5cb85c;*/
+    width: 680px;
+    height: 35px;
+    float: left;
+}
+.login_true{
+    width: 680px;
+    height: 35px;
+    float: left;
+}
+.head_content{
+    float: left;
+}
+.shopcart{
+    /*background: yellow;*/
+    width: 75px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+.bookmark{
+    /*background: #28a4c9;*/
+    width: 75px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+.myorder{
+    /*background: red;*/
+    width: 68px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+.customer{
+    /*background: #28a4c9;*/
+    width: 75px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+.sitemap{
+    /*background: yellow;*/
+    width: 95px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+.address{
+    margin-left: 108px;
+    font-size: 14px;
+    line-height: 35px;
+    color: #000;
+}
+.register{
+    margin-left: 405px;
+    font-size: 14px;
+    line-height: 35px;
+    color: #000;
+}
+.login_page{
+    font-size: 14px;
+    line-height: 35px;
+    color: red;
+}
+.register_page{
+    font-size: 14px;
+    line-height: 35px;
+    color: #000;
+}
+.span_username{
+    font-family: 'Microsoft YaHei';
+    margin-left: 525px;
+    font-size: 13px;
+    line-height: 35px;
+    color: red;
+}
+p{
+    font-size: 14px;
+    line-height: 35px;
+    color: #000;
+    text-align: center;
+}
+.vlog{
+    /*background: red;*/
+    width: 25%;
+    height: 80px;
+    float: left;
+    position: relative;
+}
+.vlog img{
+    width: 234px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 38%;
+    margin-top: -10px; /* 高度的一半 */
+    margin-left: -25px; /* 宽度的一半 */
+}
+.search1{
+    /*background: yellow;*/
+    width: 50%;
+    height: 80px;
+    float: left;
+}
+.shopcart1{
+    /*background: blue;*/
+    width: 25%;
+    height: 80px;
+    float: left;
+    text-align: center;
+}
+#btn_group{
+    margin-left: -15%;
+    position: relative; /*脱离文档流*/
+    top: 53%; /*偏移*/
+}
+.photo{
+    float: left;
+    width: 15%;
+    margin: 0 auto;
+    position: relative; /*脱离文档流*/
+    top: 27%; /*偏移*/
+}
+.intro{
+    float: left;
+    width: 80%;
+}
+.sitemapphoto{
+    float: left;
+    width: 7%;
+    margin-left: 5%;
+    position: relative; /*脱离文档流*/
+    top: 29%; /*偏移*/
+}
+.search_input {
+    float: left;
+    width: 400px;
+    height: 36px;
+    border: 2px solid #00D0D4;
+    padding-left: 10px;
+    margin-left: 130px;
+    margin-top: 42px;
+}
+.search-button {
+    float: left;
+    width: 75px;
+    height: 36px;
+    background: #00D0D4;
+    text-align: center;
+    line-height: 36px;
+    color: #000;
+    font-size: 16px;
+    margin-top: 42px;
+    text-decoration: none;
+}

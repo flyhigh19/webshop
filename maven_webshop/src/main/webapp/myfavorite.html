@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>我的商品收藏</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/shop/webshop_ranking-list.css">
+    <script src="js/jquery-3.3.1.js"></script>
+</head>
+<script>
+    $(function () {
+        $.post("favorite/myFavoriteList.do",{},function (data) {
+            if(data==null){
+                $("#contant").html("");
+                var orderNull='<div class="empty" id="empty" style="">\n' +
+                    '            <div class="empty_content">\n' +
+                    '                <div>您没有登录，所以收藏夹空空如也 <a href="login.html">去登录</a>or<a href="/index.html">去逛逛~~</a></div>\n' +
+                    '            </div>\n' +
+                    '        </div>'
+                $("#contant").append(orderNull);
+                $("#footer").remove();
+            }else{
+                $("#favoriteRank_goods").html("")
+                for (var i = 0; i < data.length; i++) {
+                    var div_goodsRank ='<li>\n' +
+                        '                        <span class="num one'+(i+1)+'">'+(i+1)+'</span>\n' +
+                        '                        <a href="goods_detail.html?goodsID='+data[i].goodsID+'&&item='+data[i].item+'"><img src="'+data[i].imgsrc+'" alt="" width="150px" height="150px"></a>\n' +
+                        '                        <h4><a href="goods_detail.html?goodsID='+data[i].goodsID+'&&item='+data[i].item+'">'+data[i].description+'</a></h4>\n' +
+                        '                        <p>\n' +
+                        '                            <b class="price">&yen;<span>'+data[i].price.toFixed(2)+'</span>起</b>\n' +
+                        '                        </p>\n' +
+                        '                    </li>'
+                    $("#favoriteRank_goods").append(div_goodsRank)
+                }
+                $("#favoriteName").html("已收藏商品列表("+data.length+")")
+            }
+        })
+    })
+</script>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<div class="contant" id="contant">
+    <div class="shaixuan">
+        <span style="color: red" id="favoriteName"></span>
+    </div>
+    <div class="list clearfix">
+        <ul id="favoriteRank_goods">
+
+        </ul>
+    </div>
+    <div class="pageNum">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<!--导入底部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+</html>

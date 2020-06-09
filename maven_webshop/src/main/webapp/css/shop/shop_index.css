@@ -1,0 +1,899 @@
+/*index第一个模块的CSS样式*/
+.first_screen{
+    /*background-color: #8c8c8c;*/
+    width: 100%; /*1140px*/
+    height: 508px;
+}
+.left_screen{
+    /*background-color: #FAFAFA;*/
+    border-left:1px #E6E6E6 solid;
+    width: 203px;
+    height: 508px;
+    float: left;
+}
+/*左方ulcss样式*/
+.first_screen .left_screen .li_block {
+    width: 203px;
+    height: 63.5px;
+    border-bottom:1px #E6E6E6 solid;
+}
+.li_left{
+    width: 160px;
+    height: 63.5px;
+    float: left;
+}
+.li_right{
+    width: 43px;
+    height: 63.5px;
+    float: left;
+    position: relative;
+}
+.li_right img{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    margin: 0 auto;
+    left:30%;
+    top: 40%;
+}
+.li_title{
+    text-align: left;
+    color: #5987FF;
+    width: 160px;
+    height: 35px;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-top: 7px;
+}
+.li_content{
+    width: 150px;
+    height: 28.5px;
+    padding-left: 20px;
+}
+.li_content a{
+    line-height: 28.5px;
+    color: #646464;
+    text-decoration: none
+}
+
+
+/*中部屏幕*/
+.center_screen{
+    /*background-color: yellow;*/
+    width: 734px;
+    height: 508px;
+    float: left;
+}
+.center_screen_top{
+    background-color: yellow;
+    width: 734px;
+    height: 358px;
+}
+.center_screen_top .carousel .item {
+    height: 358px;
+}
+/*去掉bootstrap轮播图的阴影*/
+.carousel-control.left {
+    background-image:none;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+.carousel-control.right {
+    left: auto;
+    right: 0;
+    background-image:none;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+.right_screen_bottom .carousel .item {
+    height: 159px;
+}
+.carousel-inner > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 358px;
+}
+.center_screen_bottom{
+    /*background-color: #00D0D4;*/
+    width: 734px;
+    height: 150px;
+    border-bottom: 1px solid #E6E6E6;
+}
+.center_screen_bottom_left{
+    /*background-color: blueviolet;*/
+    border-right: 1px solid #E6E6E6;
+    border-left: 1px solid #E6E6E6;
+    width: 244.5px;
+    height: 149px;
+    float: left;
+}
+.center_screen_bottom_center{
+    border-right: 1px solid #E6E6E6;
+    /*background-color: black;*/
+    width: 245px;
+    height: 149px;
+    float: left;
+}
+.center_screen_bottom_right{
+    border-right: 1px solid #E6E6E6;
+    /*background-color: #ff803b;*/
+    width: 244.5px;
+    height: 149px;
+    float: left;
+}
+.right_screen{
+    /*background-color: red;*/
+    width: 203px;
+    height: 508px;
+    float: left;
+}
+.right_screen_top{
+    width: 203px;
+    height: 149px;
+    background-image: url("../../images/fs_bgicon.png");
+    border-right: 1px solid #E6E6E6;
+}
+.icon_blank{
+    width: 203px;
+    height: 15px;
+}
+.icon_login{
+    width: 203px;
+    height: 50px;
+    /*background-color: #337ab7;*/
+}
+.right_screen_top span{
+    width: 203px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 20px;
+    display:block;
+    /*background-color: #9d9d9d;*/
+    font-weight: 500;
+}
+.icon_button{
+    width: 203px;
+    height: 44px;
+}
+.login_success{
+    width: 203px;
+    height: 44px;
+}
+.num{
+    width: 203px;
+    height: 14px;
+}
+.title{
+    width: 203px;
+    height: 30px;
+}
+.right_screen_top .login_success .num div{
+    text-align: center;
+    width: 50.5px;
+    line-height: 14px;
+    float: left;
+}
+.right_screen_top .login_success .title a{
+    margin-left: 4px;
+    width: 30px;
+    line-height: 30px;
+    color: black;
+    text-decoration: none;
+}
+.right_screen_top .icon_button a{
+    margin-top: 7px;
+    margin-left: 7.5px;
+    display: inline-block;
+    font-size: 10px;
+    border: 0;
+    width: 55px;
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #FF7F27;
+    color: #fff;
+    border-radius: 2px;
+}
+.tab{
+    width: 203px;
+    height: 199px;
+    margin: 0 auto;
+    border-bottom: 1px solid #E6E6E6;
+}
+.right_screen_btn{
+    width: 203px;
+    height: 30px;
+}
+ul{
+    list-style: none;
+}
+.tab .right_screen_btn ul li{
+    float: left;
+    height: 30px;
+    width: 50.75px;
+    text-align: center;
+    line-height: 30px;
+    border-top: 1px #E6E6E6 solid;
+    border-right: 1px #E6E6E6 solid;
+    border-bottom: 1px #E6E6E6 solid;
+}
+.tab .right_screen_btn ul li.on{
+    background: #F0F0F0;
+}
+
+/*.right_screen_btn_left{
+    background-color: red;
+    width: 50.75px;
+    height: 30px;
+    float: left;
+}
+.right_screen_btn_center1{
+    background-color: yellow;
+    width: 50.75px;
+    height: 30px;
+    float: left;
+}
+.right_screen_btn_center2{
+    background-color: blue;
+    width: 50.75px;
+    height: 30px;
+    float: left;
+}
+.right_screen_btn_right{
+    background-color: green;
+    width: 50.75px;
+    height: 30px;
+    float: left;
+}*/
+.right_screen_center{
+    /*background-color: #67b168;*/
+    border-right: 1px #E6E6E6 solid;
+    width: 203px;
+    height: 169px;
+}
+.right_screen_center div ul{
+    width: 203px;
+    height: 169px;
+    padding-top: 6px;
+}
+.right_screen_center div ul li{
+    line-height: 26px;
+    padding-left: 9px;
+    width: 189px;
+    height: 26px;
+    font-size: 12px;
+}
+.right_screen_bottom{
+    /*background-color: #337ab7;*/
+    border-bottom: 1px solid #E6E6E6;
+    border-right: 1px solid #E6E6E6;
+    width: 203px;
+    height: 160px;
+}
+/*index第二个模块的CSS样式*/
+.second_screen{
+    margin-top: 40px;
+    width: 100%;
+    height: 498px;
+    /*background-color: #8c8c8c;*/
+}
+.second_screen_left{
+    width: 937px;
+    height: 498px;
+    /*background-color: #ff803b;*/
+    float: left;
+}
+.second_screen_left_top a{
+    color: #323232;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 41px;
+    font-size: 20px;
+}
+.second_screen_left_top ul{
+    float: right;
+    /*border-bottom: 2px solid #000;*/
+}
+.second_screen_left_top ul li{
+    float: left;
+    width: 114px;
+    height: 39px;
+    padding-top: 1px;
+    border: 1px solid #e6e6e6;
+    border-width: 1px 0 0 1px;
+    text-align: center;
+    background-color: #f5f5f5;
+    font: 14px/42px "Microsoft YaHei";
+    color: #646464;
+    cursor: default;
+    overflow: hidden;
+}
+.second_screen_left_top .ontushu{
+    font-weight: bold;
+    background-color: #fff;
+    width: 112px;
+    height: 41px;
+    border: 2px solid #000;
+    border-bottom: 0px;
+    padding: 0 0 2px 0;
+    margin-bottom: -2px;
+    color: #525252;
+}
+.second_screen_right{
+    margin-left: 7px;
+    width: 196px;
+    height: 501px;
+    /*background-color: #28a4c9;*/
+    float: left;
+    border-top:1px solid #E6E6E6;
+    border-left:1px solid #E6E6E6;
+    border-right:1px solid #E6E6E6;
+}
+.second_screen_left_top{
+    width: 937px;
+    height: 41px;
+    /*background-color: red;*/
+    border-bottom: 2px solid #000;
+}
+.second_screen_left_bottom{
+    width: 937px;
+    height: 460px;
+    /*background-color: salmon;*/
+    border-left: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    border-right: 1px solid #E6E6E6;
+}
+
+.sslb_one{
+    margin-left: 1px;
+    width: 186.4px;
+    height: 228px;
+    /*background-color: #28a4c9;*/
+    float: left;
+}
+.sslb_two{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:#ff803b;*/
+    float: left;
+}
+.sslb_three{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:#8c8c8c;*/
+    float: left;
+}
+.sslb_four{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:black;*/
+    float: left;
+}
+.sslb_five{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:yellow;*/
+    float: left;
+}
+.sslb_six{
+    margin-left: 1px;
+    width: 186.4px;
+    height: 228px;
+    /*background-color:#67b168;*/
+    float: left;
+}
+.sslb_seven{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:#00D0D4;*/
+    float: left;
+}
+.sslb_eight{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:brown;*/
+    float: left;
+}
+.sslb_night{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:#9acfea;*/
+    float: left;
+}
+.sslb_ten{
+    width: 186.4px;
+    height: 228px;
+    /*background-color:slateblue;*/
+    float: left;
+}
+.second_screen_right_top{
+    width: 200px;
+    height: 41px;
+    /*background-color: #9acfea;*/
+}
+.second_screen_right_top ul{
+    float: left;
+    /*border-bottom: 2px solid #000;*/
+}
+.second_screen_right_top ul li{
+    float: left;
+    height: 46px;
+    width:97.5px;
+    border-right: 1px solid #e6e6e6;
+    line-height: 42px;
+    text-align: center;
+    color: #464646;
+    font-family:"Microsoft YaHei";
+    font-size: 14px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e6e6e6;
+}
+.second_screen_right_top .ontushu_desc{
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+}
+.second_screen_right_bottom{
+    width: 200px;
+    height: 460px;
+    /*background-color: #ff803b;*/
+}
+.second_screen_right_bottom ul li{
+    line-height: 45.4px;
+    height: 45.4px;
+    border-bottom: 1px solid #e5e5e5;
+    width: 195px;
+    clear: both;
+    vertical-align: bottom;
+}
+/*index第三个模块的CSS样式*/
+.three_screen{
+    margin-top: 40px;
+    width: 100%;
+    height: 579px;
+    /*background-color: #adadad;*/
+}
+.three_screen_top{
+    width: 100%;
+    height:46px;
+    /*background-color: #ff803b;*/
+    border-bottom: 2px solid #000;
+}
+.three_screen_top a{
+    color: #323232;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 41px;
+    font-size: 20px;
+}
+.three_screen_top ul{
+    float: right;
+    /*border-bottom: 2px solid #000;*/
+}
+.three_screen_top ul li{
+    float: left;
+    width: 114px;
+    height: 44px;
+    padding-top: 1px;
+    border: 1px solid #e6e6e6;
+    border-width: 1px 0 0 1px;
+    text-align: center;
+    background-color: #f5f5f5;
+    font: 14px/42px "Microsoft YaHei";
+    color: #646464;
+    cursor: default;
+    overflow: hidden;
+}
+.three_screen_top .fuzhuan{
+    font-weight: bold;
+    background-color: #fff;
+    width: 112px;
+    height: 46px;
+    border: 2px solid #000;
+    border-bottom: 0px;
+    padding: 0 0 2px 0;
+    margin-bottom: -2px;
+    color: #525252;
+}
+.three_screen_bottom_left{
+    margin-top: 12px;
+    width: 238px;
+    height: 521px;
+    /*background-color: #00D0D4;*/
+    border: 1px solid #E6E6E6;
+    float: left;
+}
+.three_screen_bottom_left ul li {
+    padding-top: 7px;
+    float: left;
+    width: 75px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+.three_screen_bottom_right{
+    margin-top: 12px;
+    width: 902px;
+    height: 521px;
+    /*background-color: #e4b9b9;*/
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    border-top: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.tsbr_one{
+    width: 450px;
+    height: 340px;
+    /*background-color: #b92c28;*/
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.tsbr_two{
+    width: 225.5px;
+    height: 340px;
+    /*background-color: blueviolet;*/
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.tsbr_three{
+    width: 225.5px;
+    height: 340px;
+    /*background-color: #67b168;*/
+    float: left;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.tsbr_five{
+    width: 224.5px;
+    height: 181px;
+    /*background-color: #eb9316;*/
+    float: left;
+    border-right: 1px solid #E6E6E6;
+}
+.tsbr_six{
+    width: 225.5px;
+    height: 181px;
+    /*background-color: #2b669a;*/
+    float: left;
+    border-right: 1px solid #E6E6E6;
+}
+.tsbr_seven{
+    width: 225.5px;
+    height: 181px;
+    /*background-color: #f7e1b5;*/
+    float: left;
+    border-right: 1px solid #E6E6E6;
+}
+.tsbr_eight{
+    width: 225.5px;
+    height: 181px;
+    /*background-color: black;*/
+    float: left;
+}
+/*index第四个模块的CSS样式*/
+.four_screen{
+    margin-top: 40px;
+    width: 100%;
+    height: 383px;
+    /*background-color: #adadad;*/
+}
+.four_screen_top{
+    width: 100%;
+    height: 40px;
+    /*background-color: #ff803b;*/
+}
+.four_screen_top ul{
+    float: right;
+    height: 40px;
+}
+.four_screen_top ul li{
+    float: left;
+    padding: 0 30px;
+    margin: 13px 0 0 0px;
+    font: bold 16px/20px "Microsoft YaHei";
+    border-right: 2px solid #E6E6E6;
+    text-align: center;
+}
+.four_screen_top a{
+    color: #323232;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 41px;
+    font-size: 20px;
+}
+.four_screen_bottom_left{
+    width: 380px;
+    height: 343px;
+    float: left;
+    /*background-color: red;*/
+    border: 1px solid #E6E6E6;
+}
+.four_screen_bottom_center{
+    width: 380px;
+    height: 343px;
+    float: left;
+    /*background-color: yellow;*/
+    border-top: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.four_screen_bottom_right{
+    width: 380px;
+    height: 343px;
+    float: left;
+    /*background-color: turquoise;*/
+    border: 1px solid #E6E6E6;
+}
+.fsbl_one{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    /*background-color: #5cb85c;*/
+}
+.fsbl_two{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    border-bottom: 1px solid #E6E6E6;
+    /*background-color: #00D0D4;*/
+}
+.fsbl_three{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    /*background-color: #f7e1b5;*/
+}
+.fsbl_four{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    /*background-color: #2b669a;*/
+}
+.fsbr_one{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    /*background-color: #5cb85c;*/
+}
+.fsbr_two{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    border-bottom: 1px solid #E6E6E6;
+    /*background-color: #00D0D4;*/
+}
+.fsbr_three{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    border-right: 1px solid #E6E6E6;
+    /*background-color: #f7e1b5;*/
+}
+.fsbr_four{
+    width: 189px;
+    height: 171.5px;
+    float: left;
+    /*background-color: #2b669a;*/
+}
+/*index第五个模块的CSS样式*/
+.five_screen{
+    margin-top: 40px;
+    width: 100%;
+    height: 182px;
+    /*background-color: #adadad;*/
+}
+.five_screen_top{
+    width: 100%;
+    height: 40px;
+    /*background-color: #ff803b;*/
+}
+.five_screen_top a{
+    color: #323232;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 41px;
+    font-size: 20px;
+}
+.five_screen_bottom{
+    width: 100%;
+    height: 142px;
+    /*background-color: #adadad;*/
+}
+.five_screen_bottom_one{
+    width: 220px;
+    height: 142px;
+    float: left;
+    border: 1px solid #e6e6e6;
+    margin-right: 10px;
+    _display: inline;
+    overflow: hidden;
+    /*background-color: #31b0d5;*/
+    border: 1px solid #E6E6E6;
+}
+.five_screen_bottom_two{
+    width: 220px;
+    height: 142px;
+    float: left;
+    border: 1px solid #e6e6e6;
+    margin-right: 10px;
+    _display: inline;
+    overflow: hidden;
+    /*background-color: #fc7f7f;*/
+    border: 1px solid #E6E6E6;
+}
+.five_screen_bottom_three{
+    width: 220px;
+    height: 142px;
+    float: left;
+    border: 1px solid #e6e6e6;
+    margin-right: 10px;
+    _display: inline;
+    overflow: hidden;
+    /*background-color: #ac2925;*/
+    border: 1px solid #E6E6E6;
+}
+.five_screen_bottom_four{
+    width: 220px;
+    height: 142px;
+    float: left;
+    border: 1px solid #e6e6e6;
+    margin-right: 10px;
+    _display: inline;
+    overflow: hidden;
+    /*background-color: #3e8f3e;*/
+    border: 1px solid #E6E6E6;
+}
+.five_screen_bottom_five{
+    width: 220px;
+    height: 142px;
+    float: left;
+    border: 1px solid #e6e6e6;
+    _display: inline;
+    overflow: hidden;
+    /*background-color: yellow;*/
+    border: 1px solid #E6E6E6;
+}
+/*index第六个模块的CSS样式*/
+.six_screen{
+    margin-top: 40px;
+    width: 100%;
+    height: 1000px;
+    /*background-color: #adadad;*/
+    margin-bottom: 40px;
+}
+.six_screen_top{
+    width: 100%;
+    height: 36px;
+    /*background-color: #ebccd1;*/
+    border-bottom:2px solid #FF3228;
+}
+.six_screen_top a{
+    border-left: 7px solid red;
+    padding-left: 12px;
+    color: #323232;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 41px;
+    font-size: 20px;
+    color: red;
+}
+.six_screen_bottom{
+    margin-top: 9px;
+    width: 100%;
+    height: 954px;
+    /*background-color: #f7ecb5;*/
+    border: 1px solid #E6E6E6;
+}
+.ssb_one{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_two{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_three{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_four{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_six{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_seven{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_eight{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_night{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_ten{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_twelve{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_thirteen{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_fourteen{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_fifteen{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_sixteen{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.ssb_eighteen{
+    float: left;
+    width: 227.5px;
+    height: 300px;
+    border-bottom: 1px solid #E6E6E6;
+ }

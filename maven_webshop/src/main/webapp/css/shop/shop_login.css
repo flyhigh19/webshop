@@ -1,0 +1,138 @@
+.login_ground{
+    width: 100%;
+    height:600px;
+    background-color: #F6F9FB;
+    padding-top: 1px;
+    background-image: url("../../images/login_background.jpg");
+    background-repeat: no-repeat;
+}
+.login_screen{
+    background-color: white;
+    width: 450px;
+    height: 487px;
+    margin: 50px 60%;
+}
+/*头部Css*/
+.login_head{
+    width: 450px;
+    height: 64px;
+    border-bottom: solid 1px #ECEEF2;
+    background-color: #00D0D4;
+}
+.title{
+    line-height: 64px;
+    margin-left: 105px;
+    font-size: 21px;
+}
+.login_body{
+    width: 450px;
+    height: 449px;
+}
+.login_form{
+    width:100%;
+    height:403px;
+}
+.login_form .login_blank{
+    width: 100%;
+    height: 35px;
+}
+.register_form tr{
+    width: 450px;
+    height: 68px;
+}
+.lgform_left{
+    font-size: 14px;
+    width: 70px;
+    padding-right: 10px;
+    text-align: right;
+    vertical-align: top;
+    color: #646464;
+    padding-top: 8px;
+}
+.lgform_right{
+    width: 380px;
+    height: 68px;
+    vertical-align: top;
+}
+.lgform_right_one{
+    width: 380px;
+    height: 48px;
+    vertical-align: top;
+}
+.lgform_right_two{
+    width: 380px;
+    height: 88px;
+    vertical-align: top;
+}
+.lgform_right .text{
+    border: 1px solid #e6e6e6;
+    font-family: 'Microsoft YaHei';
+    height: 38px;
+    width: 312px;
+    padding: 9px 10px;
+    line-height: 38px;
+    border-radius: 2px;
+}
+.lgform_right .warn{
+    font-size: 12px;
+    color: #f00000;
+    display: block;
+    line-height: 14px;
+    padding: 8px 13px;
+    margin-left: 0px;
+}
+.login_form .lgform_right_one span input{
+     vertical-align: middle;
+     margin: -4px 8px 0 0;
+ }
+.login_form .lgform_right_one span .forgetpassword{
+    margin-left: 120px;
+    color: #337ab7;
+}
+.login_form .lgform_right .text_pin{
+    border: 1px solid #e6e6e6;
+    font-family: 'Microsoft YaHei';
+    height: 38px;
+    width: 182px;
+    margin-right: 10px;
+    margin-top: 0px;
+    padding: 9px 10px;
+    line-height: 38px;
+    border-radius: 2px;
+}
+.login_form .lgform_right .codeimg{
+    width: 84px;
+    height: 37px;
+    margin-left: 190px;
+    margin-top: -38px;
+}
+.login_form .lgform_right .changeimg{
+    margin-left: 278px;
+    color: #1a66b3;
+    position: absolute;
+    margin-top: -28px;
+}
+.login_form .btn_login{
+    display: inline-block;
+    font-size: 20px;
+    border: 0;
+    width: 312px;
+    height: 44px;
+    line-height: 44px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #FF7F27;
+    color: #fff;
+    border-radius: 2px;
+}
+.sites{
+    color: #000;
+    margin-left: 0px;
+}
+.now_register{
+    color: black;
+    margin-left: 140px;
+}
+.login_form .lgform_right_two div{
+    padding-top: 7px;
+}

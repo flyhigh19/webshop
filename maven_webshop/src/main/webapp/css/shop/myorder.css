@@ -1,0 +1,225 @@
+.order_head_info{
+    background-color: white;
+    width: 1050px;
+    margin: 20px auto;
+    overflow:hidden
+}
+.order_head_info .order_detail {
+    height: 36px;
+    background-color: #f3f4f5;
+    line-height: 36px;
+    margin-top: 6px;
+}
+.order_head_info .order_detail1 {
+    margin-left: 308px;
+}
+.order_head_info .order_detail2 {
+    margin-left: 381px;
+}
+.order_head_info .order_detail3 {
+    margin-left: 117px;
+}
+.order_head_info .turn_page {
+    height: 44px;
+    position: relative;
+    line-height: 44px;
+}
+.order_head_info .combine_pay {
+    display: inline-block;
+    width: 76px;
+    height: 25px;
+    background-color: #d2d2d2;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 4px;
+    color: white;
+    font-family: initial;
+    margin-left: 12px;
+}
+.selected_combine_pay {
+    background-color: red;
+    cursor: pointer;
+}
+/*主体*/
+.orderList{
+    width: 1050px;
+    margin: 20px auto;
+    overflow:hidden
+}
+.order_show {
+    padding: 0 0 7px;
+}
+.order_show .order_show_head.order_show_head1 {
+    background-color: #eff3ff;
+    border-left: 1px solid #e6e8ea;
+    border-top: 1px solid #e6e8ea;
+    border-right: 1px solid #e6e8ea;
+}
+.order_show .order_show_head {
+    padding-top: 4px;
+    height: 32px;
+}
+.order_show .order_show_head {
+    background-color: #f3f4f5;
+    height: 36px;
+    color: #b2b2b2;
+    position: relative;
+    z-index: 77;
+}
+.order_show_area {
+    width: 988px;
+    zoom: 1;
+    position: relative;
+}
+.order_show .order_show_head span {
+    margin: 0px 0 0 4px;
+}
+.select_frame {
+    position: relative;
+    top: 2px;
+    *margin-right: 5px;
+    *top: 0;
+}
+.select_frame input{
+    margin-top: -5px;
+}
+.order_show .order_show_head .log_icon {
+    *position: relative;
+    *top: -1px;
+}
+.order_show .log_icon.business {
+    background-position: -1px -55px;
+}
+.order_show .order_show_head span {
+    margin: 0px 0 0 4px;
+}
+.order_show .order_show_head span, .order_show .order_show_head .customer_service {
+    *padding-top: 2px;
+}
+.order_show .order_show_head span, .order_show .order_show_head .customer_service {
+    display: inline-block;
+    margin: -1px 0 0 4px;
+}
+.order_show .log_icon {
+    background: url(../../images/wl_icon.png) no-repeat -1px -34px;
+    width: 22px;
+    height: 20px;
+    position: relative;
+    top: 4px;
+}
+.order_show .order_show_head span, .order_show .order_show_head .customer_service {
+    display: inline-block;
+    margin: -1px 0 0 4px;
+}
+.order_show .order_show_head .order_number {
+    margin-left: 0;
+    color: #4f4f4f;
+    width: 86px;
+}
+.order_show .order_show_head .time_order {
+    margin-left: 15px;
+}
+.order_show .order_show_head .price, .deposit_price {
+    margin-left: 50px;
+    font-size: 13px;
+    color: #4f4f4f;
+    text-align: right;
+}
+.order_show .order_show_head .online_pay {
+    margin-left: 10px;
+}
+.order_show .order_show_head .pay_person {
+    margin-left: 15px;
+}
+.order_show .order_show_head .orderstatus{
+    margin-left: 162px;
+    color: #4f4f4f;
+}
+.order_show .order_show_head .zhifuorder{
+    margin-left: 72px;
+}
+.order_show .order_show_head .deleteorder{
+    margin-left: 10px;
+}
+/**/
+.order_show_area {
+    width: 100%;
+    overflow: hidden;
+    border-left: 1px solid #e6e8ea;
+    border-bottom: 1px solid #e6e8ea;
+    border-right: 1px solid #e6e8ea;
+}
+.order_show_area>a {
+    width: 76px;
+    height: 76px;
+    border: 1px solid #dcdcdc;
+    float: left;
+    margin: 10px;
+    padding: 2px;
+}
+.order_show_area a img {
+    display: block;
+    width: 70px;
+    height: 70px;
+}
+.order_show_area .introduce_detail {
+    position: absolute;
+    width: 300px;
+    height: 70px;
+    background-color: white;
+    padding-left: 2px;
+    padding-top: 10px;
+    /* display: none; */
+}
+.order_show_area .info_introduce {
+    height: 45px;
+    width: 300px;
+    line-height: 20px;
+    overflow: hidden;
+    margin-top: 5px;
+    color: #646464;
+    font-size: 12px;
+}
+.order_show_area .price_s{
+    margin-top: 15px;
+    display: block;
+    font-size: 12px;
+}
+.order_show_area .price_s .price_num{
+    color: red;
+}
+.order_show_area .orderGoodsDetail{
+    width: 100px;
+    height: 40px;
+    margin-left: 912px;
+    margin-top: 35px;
+}
+.order_show_area .orderGoodsDetail a{
+    color: black;
+}
+.empty_content{
+    float: left;
+}
+.empty_content div{
+    float: left;
+    margin-top: 42px;
+}
+.order_head_info .empty {
+    margin-top: 15px;
+    padding: 90px 0 0 395px;
+    background: url(../../images/empty.png) 90px 46px no-repeat;
+    height: 280px;
+    font-family: "Microsoft Yahei",'Hiragino Sans GB',"Simsun","Arial";
+    font-size: 12px;
+    color: #969696;
+    line-height: 1;
+    margin-left: 120px;
+}
+.order_head_info .empty p {
+    font-size: 14px;
+    color: #8a8888;
+    float: left;
+}
+.order_head_info .empty a{
+    color: red;
+}

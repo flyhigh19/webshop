@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>网上商城</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/shop/shop_index.css">
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+    <script type="text/javascript" src="js/web_shop/webshop_index.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        $.post("order/findMyOrderList.do", {}, function (data) {
+            if(data.flag==false){
+                $("#noPay").html("0")
+            }else{
+                $("#noPay").html(data.length)
+            }
+            $("#noPayCage").click(function () {
+                location.href="/myorder.html"
+            })
+        })
+    </script>
+</head>
+<body>
+	<!--引入头部-->
+    <div id="header"></div>
+    <div class="container">
+        <div class="first_screen">
+            <div class="left_screen">
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">图书</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000003">教育</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000003">文艺</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000003">小说</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000003">励志</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000003">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">家具</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000008">客厅</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000008">卧室</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000008">书房</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000008">储物</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000008">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">数码</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000005">配件</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000005">影音</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000005">通讯</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000005">电子</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000005">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">服装</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000002">男装</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000002">女装</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000002">童鞋</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000002">童装</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000002">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">男鞋</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000004">运动</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000004">休闲</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000004">皮鞋</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000004">增高</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000004">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">食品</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000006">休闲</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000006">进口</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000006">生鲜</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000006">粮酒</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000006">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">电脑办公</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000007">整机</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000007">配件</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000007">外设</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000007">网络</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000007">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="li_block">
+                    <div class="li_left">
+                        <div class="li_title">家用电器</div>
+                        <span class="li_content">
+                            <a href="/goods_list.html?goodsID=G000000001">空调</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000001">冰箱</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000001">电视</a>&nbsp;
+                            <a href="/goods_list.html?goodsID=G000000001">厨房</a>
+                        </span>
+                    </div>
+                    <div class="li_right">
+                        <a href="/goods_list.html?goodsID=G000000001">
+                            <img src="images/icon_right.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="center_screen">
+                <div class="center_screen_top">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4000">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="images/banner/banner_1.jpg" alt="">
+                            </div>
+                            <div class="item">
+                                <img src="images/banner/banner_2.jpg" alt="">
+                            </div>
+                            <div class="item">
+                                <img src="images/banner/banner_3.jpg" alt="">
+                            </div>
+                            <div class="item">
+                                <img src="images/banner/banner_4.jpg" alt="">
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="center_screen_bottom">
+                    <div class="center_screen_bottom_left">
+                        <img src="images/shop/shop1.png" style="width: 242px;height: 149px">
+                    </div>
+                    <div class="center_screen_bottom_center">
+                        <img src="images/shop/shop2.png" style="width: 244px;height: 149px" >
+                    </div>
+                    <div class="center_screen_bottom_right">
+                        <img src="images/shop/shop3.png" style="width: 244px;height: 149px">
+                    </div>
+                </div>
+            </div>
+            <div class="right_screen">
+                <div class="right_screen_top">
+                    <div class="icon_blank"></div>
+                    <div class="icon_login">
+                        <img src="images/jqr.png" style="width: 50px;height: 50px;margin: 0 auto">
+                    </div>
+                    <span id="nologin">Hi,你好,欢迎来到网上商城</span>
+                    <span id="welcomelogin"></span>
+                    <div class="icon_button">
+                        <a href="/login.html">登录</a>
+                        <a href="/register.html">注册</a>
+                        <a href="/business_register.html">开店</a>
+                    </div>
+                    <div class="login_success">
+                        <div class="num">
+                            <div>
+                                <font href="#" style="color: red">0</font>
+                            </div>
+                            <div>
+                                <font href="#" style="color: red">0</font>
+                            </div>
+                            <div>
+                                <font href="#" style="color: red" id="noPay">0</font>
+                            </div>
+                            <div>
+                                <font href="#" style="color: red">0</font>
+                            </div>
+                        </div>
+                        <div class="title">
+                            <a href="#">待发货</a>
+                            <a href="#">待收货</a>
+                            <a href="javascript:void(0)" id="noPayCage">待付款</a>
+                            <a href="#">待评价</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab">
+                    <div class="right_screen_btn">
+                        <ul>
+                            <li class="on">公告</li>
+                            <li>论坛</li>
+                            <li>机票</li>
+                            <li>酒店</li>
+                        </ul>
+                    </div>
+                    <div class="right_screen_center">
+                        <div>
+                            <ul>
+                                <li>
+                                    <span style="color: #ff2832">> 关于谨防诈骗的重要提示</span>
+                                </li>
+                                <li>
+                                    <span>> 普通口罩与医用口罩的区别</span>
+                                </li>
+                                <li>
+                                    <span>> 春夏港风休闲格子衬衫</span>
+                                </li>
+                                <li>
+                                    <span>> 多种商品，礼品卡支付更优惠</span>
+                                </li>
+                                <li>
+                                    <span>> 低卡又超满足的治愈零食</span>
+                                </li>
+                                <li>
+                                    <span style="color: #ff2832">> 受天气影响部分订单推迟配送</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="display:none;text-align: center;padding-top: 30%">暂无，论坛功能完善中...</div>
+                        <div style="display:none;text-align: center;padding-top: 30%">暂无，机票功能完善中...</div>
+                        <div style="display:none;text-align: center;padding-top: 30%">暂无，酒店功能完善中...</div>
+                    </div>
+                </div>
+                <div class="right_screen_bottom">
+                    <div id="carousel-example-generic2" class="carousel slide" data-ride="carousel" data-interval="3500">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic2" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic2" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic2" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="images/banner/banner5.png" alt="" style="width:203px;height: 159px">
+                            </div>
+                            <div class="item">
+                                <img src="images/banner/banner6.png" alt="" style="width:203px;height: 159px">
+                            </div>
+                            <div class="item">
+                                <img src="images/banner/banner7.png" alt="" style="width:203px;height: 159px">
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic2" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic2" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="second_screen">
+            <div class="second_screen_left">
+                <div class="second_screen_left_top">
+                    <b><a href="#" class="tushu">精品图书</a></b>
+                    <span>.</span>
+                    <b><a href="#" class="tushu">小说</a></b>
+                    <span>.</span>
+                    <b><a href="#" class="tushu">励志</a></b>
+                    <span>.</span>
+                    <b><a href="#" class="tushu">网络文学</a></b>
+                    <ul>
+                        <li class="ontushu">最新上架</li>
+                        <li>重点推荐</li>
+                        <li>独家畅品</li>
+                        <li>网络文学</li>
+                        <li>电子书</li>
+                    </ul>
+                </div>
+                <div class="second_screen_left_bottom">
+                    <div>
+                        <div class="sslb_one">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_two">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_three">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_four">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_five">
+                            <img src="images/tushu/tushu5.png"/>
+                        </div>
+                        <div class="sslb_six">
+                            <img src="images/tushu/tushu6.png"/>
+                        </div>
+                        <div class="sslb_seven">
+                            <img src="images/tushu/tushu7.png"/>
+                        </div>
+                        <div class="sslb_eight">
+                            <img src="images/tushu/tushu8.png"/>
+                        </div>
+                        <div class="sslb_night">
+                            <img src="images/tushu/tushu9.png"/>
+                        </div>
+                        <div class="sslb_ten">
+                            <img src="images/tushu/tushu10.png"/>
+                        </div>
+                    </div>
+                    <div style="display:none">
+                        <div class="sslb_one">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_two">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_three">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_four">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_five">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_six">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_seven">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_eight">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_night">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                        <div class="sslb_ten">
+                            <img src="images/tushu/tushu1.png"/>
+                        </div>
+                    </div>
+                    <div style="display:none">
+                        <div class="sslb_one">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_two">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_three">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_four">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_five">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_six">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_seven">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_eight">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_night">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                        <div class="sslb_ten">
+                            <img src="images/tushu/tushu2.png"/>
+                        </div>
+                    </div>
+                    <div style="display:none">
+                        <div class="sslb_one">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_two">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_three">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_four">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_five">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_six">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_seven">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_eight">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_night">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                        <div class="sslb_ten">
+                            <img src="images/tushu/tushu3.png"/>
+                        </div>
+                    </div>
+                    <div style="display:none">
+                        <div class="sslb_one">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_two">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_three">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_four">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_five">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_six">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_seven">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_eight">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_night">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                        <div class="sslb_ten">
+                            <img src="images/tushu/tushu4.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="second_screen_right">
+                <div class="second_screen_right_top">
+                    <ul>
+                        <li class="ontushu_desc">图书畅销榜</li>
+                        <li>图书新书榜</li>
+                    </ul>
+                </div>
+                <div class="second_screen_right_bottom">
+                    <div>
+                        <ul>
+                        <li>&nbsp;&nbsp;1: 一年顶十年</li>
+                        <li>&nbsp;&nbsp;2: 中国制造未来</li>
+                        <li>&nbsp;&nbsp;3: 跑起来，只为认真对待自己</li>
+                        <li>&nbsp;&nbsp;4: 隐藏的人格</li>
+                        <li>&nbsp;&nbsp;5: 你出现，够我喜欢好多年</li>
+                        <li>&nbsp;&nbsp;6: 超级时间整理</li>
+                        <li>&nbsp;&nbsp;7: 一个人的修养</li>
+                        <li>&nbsp;&nbsp;8: 重逢未来的自己</li>
+                        <li>&nbsp;&nbsp;9: 为什么时间总是不够用</li>
+                        <li>&nbsp;&nbsp;10: 呼吸，科幻之作</li>
+                        </ul>
+                    </div>
+                    <div style="display:none">
+                        <ul>
+                            <li>&nbsp;&nbsp;1: 你当像鸟飞往你的山</li>
+                            <li>&nbsp;&nbsp;2: 神奇轿车</li>
+                            <li>&nbsp;&nbsp;3: 人间失格</li>
+                            <li>&nbsp;&nbsp;4: 云边有个小卖部</li>
+                            <li>&nbsp;&nbsp;5: 小熊和最好的爸爸</li>
+                            <li>&nbsp;&nbsp;6: 月亮与六便士</li>
+                            <li>&nbsp;&nbsp;7: 大国崛起</li>
+                            <li>&nbsp;&nbsp;8: 正面管教</li>
+                            <li>&nbsp;&nbsp;9: 百年孤独</li>
+                            <li>&nbsp;&nbsp;10: 大众心理研究</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="three_screen">
+            <div class="three_screen_top">
+                <b><a href="#">服装</a></b>
+                <ul>
+                    <li class="fuzhuan">服装鞋包</li>
+                    <li>童装童鞋</li>
+                    <li>运动潮流</li>
+                    <li>男装女装</li>
+                    <li>鞋靴箱包</li>
+                </ul>
+            </div>
+            <div class="three_screen_bottom_left">
+                <img src="images/fuzhuan/fz_bg2.png" style="width: 237px;"/>
+                <ul>
+                    <li>外套</li>
+                    <li>亲子装</li>
+                    <li>卫衣</li>
+                    <li>风衣</li>
+                    <li>牛仔裤</li>
+                    <li>西装</li>
+                    <li>短裤</li>
+                    <li>针织衫</li>
+                    <li>夹克</li>
+                    <li>潮流</li>
+                    <li>帆布鞋</li>
+                    <li>商务</li>
+                    <li>休闲</li>
+                    <li>布洛克</li>
+                    <li>棉袜</li>
+                </ul>
+            </div>
+            <div class="three_screen_bottom_right">
+                <div>
+                    <div class="tsbr_one">
+                    <img src="images/fuzhuan/fz_one.png" style="width: 450px;height: 339px">
+                </div>
+                    <div class="tsbr_two">
+                        <img src="images/fuzhuan/fz_two.png" style="width: 225px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_three">
+                        <img src="images/fuzhuan/fz_three.png" style="width: 227px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_five">
+                        <img src="images/fuzhuan/fz_5.png" style="width: 223px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_six">
+                        <img src="images/fuzhuan/fz_6.png" style="width: 225px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_seven">
+                        <img src="images/fuzhuan/fz_7.png" style="width: 224px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_eight">
+                        <img src="images/fuzhuan/fz_8.png" style="width: 226px;height: 179px"/>
+                    </div>
+                </div>
+                <div style="display: none">
+                    <div class="tsbr_one">
+                        <img src="images/fuzhuan/fz_one.png" style="width: 450px;height: 339px">
+                    </div>
+                    <div class="tsbr_two">
+                        <img src="images/fuzhuan/fz_two.png" style="width: 225px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_three">
+                        <img src="images/fuzhuan/fz_two.png" style="width: 227px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_five">
+                        <img src="images/fuzhuan/fz_5.png" style="width: 223px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_six">
+                        <img src="images/fuzhuan/fz_5.png" style="width: 225px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_seven">
+                        <img src="images/fuzhuan/fz_5.png" style="width: 224px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_eight">
+                        <img src="images/fuzhuan/fz_5.png" style="width: 226px;height: 179px"/>
+                    </div>
+                </div>
+                <div style="display: none">
+                    <div class="tsbr_one">
+                        <img src="images/fuzhuan/fz_one.png" style="width: 450px;height: 339px">
+                    </div>
+                    <div class="tsbr_two">
+                        <img src="images/fuzhuan/fz_three.png" style="width: 225px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_three">
+                        <img src="images/fuzhuan/fz_three.png" style="width: 227px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_five">
+                        <img src="images/fuzhuan/fz_6.png" style="width: 223px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_six">
+                        <img src="images/fuzhuan/fz_6.png" style="width: 225px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_seven">
+                        <img src="images/fuzhuan/fz_6.png" style="width: 224px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_eight">
+                        <img src="images/fuzhuan/fz_6.png" style="width: 226px;height: 179px"/>
+                    </div>
+                </div>
+                <div style="display: none">
+                    <div class="tsbr_one">
+                        <img src="images/fuzhuan/fz_one.png" style="width: 450px;height: 339px">
+                    </div>
+                    <div class="tsbr_two">
+                        <img src="images/fuzhuan/fz_two.png" style="width: 225px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_three">
+                        <img src="images/fuzhuan/fz_three.png" style="width: 227px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_five">
+                        <img src="images/fuzhuan/fz_7.png" style="width: 223px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_six">
+                        <img src="images/fuzhuan/fz_7.png" style="width: 225px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_seven">
+                        <img src="images/fuzhuan/fz_7.png" style="width: 224px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_eight">
+                        <img src="images/fuzhuan/fz_7.png" style="width: 226px;height: 179px"/>
+                    </div>
+                </div>
+                <div style="display: none">
+                    <div class="tsbr_one">
+                        <img src="images/fuzhuan/fz_one.png" style="width: 450px;height: 339px">
+                    </div>
+                    <div class="tsbr_two">
+                        <img src="images/fuzhuan/fz_three.png" style="width: 225px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_three">
+                        <img src="images/fuzhuan/fz_two.png" style="width: 227px;height: 339px"/>
+                    </div>
+                    <div class="tsbr_five">
+                        <img src="images/fuzhuan/fz_8.png" style="width: 223px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_six">
+                        <img src="images/fuzhuan/fz_8.png" style="width: 225px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_seven">
+                        <img src="images/fuzhuan/fz_8.png" style="width: 224px;height: 179px"/>
+                    </div>
+                    <div class="tsbr_eight">
+                        <img src="images/fuzhuan/fz_8.png" style="width: 226px;height: 179px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="four_screen">
+            <div class="four_screen_top">
+                <b><a href="#">超市百货</a></b>
+                <ul>
+                    <li>厨房电器</li>
+                    <li>烹饪锅具</li>
+                    <li>清洁护理</li>
+                    <li>创意家居</li>
+                    <li>天天特卖</li>
+                    <li>粮油调味</li>
+                </ul>
+            </div>
+            <div class="four_screen_bottom_left">
+                <div class="fsbl_one">
+                    <img src="images/cook/cook_z1.png" style="width: 188px;height: 172px"/>
+                </div>
+                <div class="fsbl_two">
+                    <img src="images/cook/cook_z2.png" style="width: 188px;height: 172px"/>
+                </div>
+                <div class="fsbl_three">
+                    <img src="images/cook/cook_z3.png" style="width: 188px;height: 171px"/>
+                </div>
+                <div class="fsbl_four">
+                    <img src="images/cook/cook_z4.png" style="width: 188px;height: 171px"/>
+                </div>
+            </div>
+            <div class="four_screen_bottom_center">
+                <img src="images/cook/cook_c1.png" style="width: 380px;height: 342px"/>
+            </div>
+            <div class="four_screen_bottom_right">
+                <div class="fsbr_one">
+                    <img src="images/cook/cook_r1.png" style="width: 188px;height: 172px"/>
+                </div>
+                <div class="fsbr_two">
+                    <img src="images/cook/cook_r2.png" style="width: 188px;height: 172px"/>
+                </div>
+                <div class="fsbr_three">
+                    <img src="images/cook/cook_r3.png" style="width: 188px;height: 171px"/>
+                </div>
+                <div class="fsbr_four">
+                    <img src="images/cook/cook_r4.png" style="width: 188px;height: 171px"/>
+                </div>
+            </div>
+        </div>
+        <div class="five_screen">
+            <div class="five_screen_top">
+                <b><a href="#">创意文具</a></b>
+            </div>
+            <div class="five_screen_bottom">
+                <div class="five_screen_bottom_one">
+                    <img src="images/wenju/wj_1.png" style="width: 220px;height: 141px"/>
+                </div>
+                <div class="five_screen_bottom_two">
+                    <img src="images/wenju/wj_2.png" style="width: 220px;height: 141px"/>
+                </div>
+                <div class="five_screen_bottom_three">
+                    <img src="images/wenju/wj_3.png" style="width: 220px;height: 141px"/>
+                </div>
+                <div class="five_screen_bottom_four">
+                    <img src="images/wenju/wj_4.png" style="width: 220px;height: 141px"/>
+                </div>
+                <div class="five_screen_bottom_five">
+                    <img src="images/wenju/wj_5.png" style="width: 220px;height: 141px"/>
+                </div>
+            </div>
+        </div>
+        <div class="six_screen">
+            <div class="six_screen_top">
+                <b><a href="#">猜你喜欢</a></b>
+            </div>
+            <div class="six_screen_bottom">
+                <div class="ssb_one">
+                    <img src="images/like/like_1.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_two">
+                    <img src="images/like/like_2.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_three">
+                    <img src="images/like/like_3.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_four">
+                    <img src="images/like/like_4.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_six">
+                    <img src="images/like/like_5.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_seven">
+                    <img src="images/like/like_6.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_eight">
+                    <img src="images/like/like_7.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_night">
+                    <img src="images/like/like_8.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_ten">
+                    <img src="images/like/like_9.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_twelve">
+                    <img src="images/like/like_10.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_thirteen">
+                    <img src="images/like/like_11.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_fourteen">
+                    <img src="images/like/like_12.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_fifteen">
+                    <img src="images/like/like_13.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_sixteen">
+                    <img src="images/like/like_14.png" style="width: 226px;height: 299px"/>
+                </div>
+                <div class="ssb_eighteen">
+                    <img src="images/like/like_15.png" style="width: 226px;height: 299px"/>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!--导入底部-->
+   <div id="footer"></div>
+</body>
+</html>

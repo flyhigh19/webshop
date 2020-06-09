@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>新用户注册</title>
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" type="text/css" href="css/shop/shop_register.css">
+        <!--<link rel="stylesheet" href="css/register.css">-->
+		<!--导入jquery-->
+		<script src="js/jquery-3.3.1.js"></script>
+		<!--导入布局js，共享header和footer-->
+		<script type="text/javascript" src="js/include.js"></script>
+        <style>
+            .sure{
+                font-size: 12px;
+                color:darkgrey;
+                display: block;
+                line-height: 14px;
+                padding: 8px 13px;
+                margin-right: 5px;
+            }
+        </style>
+		<script>
+            function checkMemberPhone () {
+                var memberphone = $("#MemberPhone").val();
+                var flag = /^1[34578]\d{9}$/.test(memberphone);
+                if (!flag){
+                    $("#MemberPhone").css("border","1px solid red");
+                    $("#J_tipMemberPhone").empty();
+                    $("#J_tipMemberPhone").removeClass("sure")
+                    $("#J_tipMemberPhone").addClass("warn");
+                    $("#J_tipMemberPhone").html("手机格式不正确，请重新输入");
+                    $("#phone_yes").remove();
+                }else {
+                	/*这里必须设置请求为同步，不然等结果返回，前端代码早就执行完了*/
+					$.ajaxSettings.async = false;
+					$.post("user/isContainsSamePhone.do",{MemberPhone:memberphone},function (data) {
+						if(!data.flag){
+							$("#MemberPhone").css("border","1px solid red");
+							$("#J_tipMemberPhone").empty();
+							$("#J_tipMemberPhone").removeClass("sure");
+							$("#J_tipMemberPhone").addClass("warn");
+							$("#J_tipMemberPhone").html(data.errorMsg);
+							flag=false;
+						}else{
+							$("#MemberPhone").css("border","");
+							$("#J_tipMemberPhone").empty();
+							$("#J_tipMemberPhone").removeClass("warn");
+							if($("#phone_yes").length<1){
+								$("#MemberPhone").after('<b id="phone_yes">√</b>')
+							}
+							flag=true;
+						}
+					},"json");
+                }
+                return flag;
+            }
+            function checkPassword () {
+                var password = $("#MemberPassword").val();
+                var  flag = /^\w{6,20}$/.test(password);
+                if (!flag){
+                    $("#MemberPassword").css("border","1px solid red");
+                    $("#J_tipPassword").empty();
+                    $("#J_tipPassword").removeClass("sure")
+                    $("#J_tipPassword").addClass("warn");
+                    $("#J_tipPassword").html("密码长度为6-20个字符，请重新输入");
+                    $("#yes_password").remove();
+                }else {
+                    if(isSimplePwd(password)<=1){
+                        $("#MemberPassword").css("border","");
+                        $("#J_tipPassword").empty();
+                        $("#J_tipPassword").removeClass("warn");
+                        $("#J_tipPassword").addClass("sure");
+                        $("#J_tipPassword").html("密码过于简单");
+                    }else if(isSimplePwd(password)<=2){
+                        $("#MemberPassword").css("border","");
+                        $("#J_tipPassword").empty();
+                        $("#J_tipPassword").removeClass("warn");
+                        $("#J_tipPassword").addClass("sure");
+                        $("#J_tipPassword").html("试试字母、符号、数字的组合更安全");
+                    }else{
+                        $("#MemberPassword").css("border","");
+                        $("#J_tipPassword").empty();
+                        $("#J_tipPassword").removeClass("warn");
+                        $("#J_tipPassword").addClass("sure");
+                        $("#J_tipPassword").html("密码设置安全，放心使用");
+                    }
+                    if($("#yes_password").length<1){
+                        $("#MemberPassword").after('<b id="yes_password">√</b>')
+                    }
+                }
+                return flag;
+            }
+            /**
+             *简单验证密码强度
+             *必须包含数字、小写字母、大写字母、特殊字符 其三
+             *如果返回值小于3 则说明密码过于简单
+             */
+            function isSimplePwd(s){
+                var ls = 0;
+                if(s.match(/([a-z])+/)){
+                    ls++;
+                }
+                if(s.match(/([0-9])+/)){
+                    ls++;
+                }
+                if(s.match(/([A-Z])+/)){
+                    ls++;
+                }
+                if(s.match(/[^a-zA-Z0-9]+/)){
+                    ls++;
+                }
+                return ls;
+            }
+            function confirmPassword(){
+                var flag=false;
+                var password=$("#MemberPassword").val();
+                var repassword=$("#Repassword").val();
+                if(password==repassword&&repassword.length>0){
+                    flag=true;
+                    $("#Repassword").css("border","");
+                    $("#J_tipRePassword").empty();
+                    $("#J_tipRePassword").removeClass("warn");
+                    if($("#yes_repassword").length<1){
+                        $("#Repassword").after('<b id="yes_repassword">√</b>')
+                    }
+                    return flag;
+                }else{
+                    $("#Repassword").css("border","1px solid red");
+                    flag=false;
+                    $("#J_tipRePassword").empty();
+                    $("#J_tipRePassword").removeClass("sure");
+                    $("#J_tipRePassword").addClass("warn");
+                    $("#J_tipRePassword").html("两次输入的密码不一致，请重新输入");
+                    $("#yes_repassword").remove();
+                    return flag;
+                }
+            }
+            /*入口函数*/
+			$(function () {
+                /*
+				*  校验手机号码
+				* */
+				$("#MemberPhone").blur(checkMemberPhone);
+				$("#MemberPhone").focus(function () {
+                    $("#MemberPhone").css("border","");
+                    $("#J_tipMemberPhone").empty();
+                    $("#J_tipMemberPhone").removeClass("warn")
+                    $("#J_tipMemberPhone").addClass("sure");
+                    $("#J_tipMemberPhone").html("手机号可用于登录、找回密码、接收订单通知等服务");
+                    $("#phone_yes").remove();
+                })
+                /*
+               *  校验密码
+               *  	长度  6-20位字符 （字母或者数字）
+               * */
+                $("#MemberPassword").blur(checkPassword);
+                $("#MemberPassword").focus(function () {
+                    $("#MemberPassword").css("border","");
+                    $("#J_tipPassword").empty();
+                    $("#J_tipPassword").removeClass("warn");
+                    $("#J_tipPassword").addClass("sure");
+                    $("#J_tipPassword").html("密码为6-20个字符，可由英文、数字及符号组成");
+                    $("#yes_password").remove();
+                });
+                /*前端校验输入密码和确认密码是否一致*/
+                $("#Repassword").blur(confirmPassword)
+                $("#Repassword").focus(function () {
+                    $("#Repassword").css("border","");
+                    $("#J_tipRePassword").empty();
+                    $("#J_tipRePassword").removeClass("warn");
+                    $("#J_tipRePassword").addClass("sure");
+                    $("#J_tipRePassword").html("请再次输入密码");
+                    $("#yes_repassword").remove();
+                });
+                /*前端提示用户进行验证码信息输入*/
+                $("#Checkcode").focus(function () {
+                    $("#Checkcode").css("border","");
+                    $("#J_tipCheckCode").empty();
+                    $("#J_tipCheckCode").removeClass("warn");
+                    $("#J_tipCheckCode").addClass("sure");
+                    $("#J_tipCheckCode").html("请填写图片中的字符，不区分大小写");
+                });
+                /*点击立即注册异步提交表单*/
+                $("#btn_login").click(function () {
+					var memberPhoneFlag = checkMemberPhone();
+                    var passwordFlag = checkPassword();
+                    var repasswordFlag = confirmPassword();
+                    if (memberPhoneFlag && passwordFlag && repasswordFlag){
+                        //通过ajax 提交表单数据到服务器
+							// 原因：项目的基本架构是前后端分离，前端页面都是html页面 ，html页面中不能通过el表达式获取request中的数据
+							// 所有服务器是不能将数据保持到request中传递到页面里面来的，但是ajax请求能够接受服务器响应回来的数据
+                        $.post("user/regist.do",$("#registerForm").serialize(),function (data) {
+                            /*
+								1. 如果服务器注册成功 跳转页面
+								2. 否则展示错误信息
+                        	*/
+                            if(data.flag){
+                            	alert("恭喜您，注册成功！！");
+                                location.href = "login.html"
+							}else {
+                                $("#Checkcode").css("border","1px solid red");
+                                $("#J_tipCheckCode").empty();
+                                $("#J_tipCheckCode").removeClass("sure");
+                                $("#J_tipCheckCode").addClass("warn");
+                                $("#J_tipCheckCode").html(data.errorMsg);
+							}
+                        },"json");
+					}
+                    return false;
+                });
+            })
+		</script>
+    </head>
+	<body>
+	<!--引入头部-->
+	<div id="header"></div>
+	<!-- 头部 end -->
+		<div class="rg_background">
+			<div class="rg_screen">
+				<div class="rg_head">
+					<span class="sub_head">
+						<a href="#" class="home">首页</a>
+						<a href="#">注册帮助</a>
+					</span>
+						<a href="javascript:void(0);" class="new_user">新用户注册</a>
+						<a href="/business_register.html" class="enterprise_user">商家注册</a>
+				</div>
+				<div class="rg_body">
+					<form id="registerForm">
+						<table class="register_form">
+							<tr class="rgform_blank"></tr>
+							<tr>
+								<td class="rgform_left">手机号码</td>
+								<td class="rgform_right">
+									<input name="memberPhone" id="MemberPhone" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入您的手机号码" type="text" class="text">
+									<span id="J_tipMemberPhone" class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="rgform_left">登录密码</td>
+								<td class="rgform_right">
+									<input name="memberPassword" id="MemberPassword" onpaste="return false;" tabindex="2" type="password" class="text" maxlength="20">
+									<span id="J_tipPassword" class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="rgform_left">确认密码</td>
+								<td class="rgform_right">
+									<input name="rePassword" id="Repassword" onpaste="return false" tabindex="3" type="password" class="text" maxlength="20">
+									<span id="J_tipRePassword" class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="rgform_left">验证码</td>
+                                <td class="rgform_right">
+                                    <input class="text_pin" type="text" name="checkCode" id="Checkcode" autocomplete="off" placeholder="请输入验证码" maxlength="4" tabindex="5">
+                                    <img src="user/CheckCode.do" onclick="changeCheckCode(this)" class="codeimg">
+                                    <a href="javascript:void(0);" class="changeimg" id="changeimg">换张图</a>
+                                    <script type="text/javascript">
+                                        //图片点击事件
+                                        function changeCheckCode(img) {
+                                            img.src="user/CheckCode.do?"+new Date().getTime();
+                                        }
+                                        $("#changeimg").click(function () {
+                                            $(".codeimg").attr("src","user/CheckCode.do?"+new Date().getTime());
+                                        })
+                                    </script>
+                                    <span id="J_tipCheckCode" class="warn"></span>
+                                </td>
+							</tr>
+							<tr>
+								<td class="rgform_left">&nbsp;</td>
+								<td class="rgform_right">
+									<span>
+										<input name="isAgree" value="agreeprotocol" onmouseover="this.style.cursor='pointer';this.style.cursor='hand';" tabindex="7" type="checkbox" checked="checked">
+										我已经同意协议
+										<a href="#" tabindex="8">《交易条款》</a>和
+										<a href="#" tabindex="10">《隐私政策》</a>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="rgform_left">&nbsp;</td>
+								<td class="rgform_right">
+									<input id="btn_login" class="btn_login" tabindex="11" type="button" value="立即注册"/>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+    <!--引入尾部-->
+    <div id="footer"></div>
+    </body>
+</html>

@@ -1,0 +1,259 @@
+/*整体页面布局*/
+.cart_screen{
+    background-color: white;
+    width: 960px;
+    margin: 0px auto 40px;
+    overflow:hidden
+}
+/*订单编号信息*/
+.pay_price {
+    line-height: 34px;
+    background-color: #f5f5f5;
+    color: #000;
+    padding: 12px 30px;
+    margin-top: 15px;
+}
+.pay_price .price {
+    width: 280px;
+    display: inline-block;
+}
+.pay_price .price .red {
+    font-size: 18px;
+    padding-left: 10px;
+}
+.red {
+    color: #ff2832;
+}
+.pay_price .name_c {
+    width: 200px;
+    display: inline-block;
+}
+a:link, a:visited {
+    text-decoration: none;
+    color: #1a66b3;
+}
+.cart_screen h3 {
+    color: #000;
+    line-height: 14px;
+    margin: 15px 0 10px;
+}
+/*常用支付方式*/
+.pay_box {
+    border: 1px solid #dcdcdc;
+    padding: 10px;
+}
+.payment_table {
+    width: 915px;
+    text-align: center;
+    line-height: 16px;
+    margin: 10px 0 0 20px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.payment_table td {
+    width: 142px;
+    padding: 0 50px 10px 0;
+    vertical-align: top;
+}
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+.payment_table td a {
+    border: 1px solid #eaeaea;
+    display: block;
+    margin-bottom: 5px;
+    position: relative;
+}
+.payment_table td a span {
+    width: 18px;
+    height: 18px;
+    background: url(../../images/choosen.png) 0 0 no-repeat;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: none;
+}
+.payment_table td a span.hot {
+    background: url(../../images/hot_bg.png) 0 0 no-repeat;
+    text-align: center;
+    color: #fff;
+    line-height: 16px;
+    height: 16px;
+    width: 34px;
+    right: auto;
+    bottom: auto;
+    left: -15px;
+    top: -8px;
+    display: block;
+    font-family: Simsun;
+}
+.payment_table td a.current {
+    border: 2px solid #ff6565;
+    margin: -1px -1px 4px;
+    position: relative;
+}
+.payment_table td a.current span {
+    display: block;
+}
+.instalments {
+    border-top: 1px solid #eaeaea;
+    padding: 10px 0;
+    margin: 8px 20px;
+}
+a.btn_big {
+    width: 143px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+}
+a.btn {
+    background-color: #ff2832;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 10px;
+    border-radius: 3px;
+    margin: 0 0 6px 20px;
+}
+input[type="hidden" i], input[type="image" i], input[type="file" i] {
+    -webkit-appearance: initial;
+    background-color: initial;
+    cursor: default;
+    padding: initial;
+    border: initial;
+}
+input[type="hidden" i] {
+    display: none;
+}
+/*支付银行*/
+.pay_list {
+    padding: 10px 20px 5px;
+    line-height: 12px;
+    border: 1px solid #dcdcdc;
+}
+.pay_list dl {
+    width: 720px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+.pay_list a.drop {
+    display: inline-block;
+    *vertical-align: top;
+}
+.pay_list a {
+    color: #000;
+}
+.pay_list a.drop .down, .pay_list a.drop .up {
+    width: 12px;
+    height: 12px;
+    background: url(../../images/icon_bg.png) 3px -53px no-repeat;
+    display: inline-block;
+    margin-left: 4px;
+    vertical-align: text-top;
+}
+.pay_list dl a {
+    border-right: 1px solid #a0a0a0;
+    padding: 0 20px 0 0;
+    width: 75px;
+    text-align: center;
+    margin: 0 18px 5px 0;
+    display: inline-block;
+    line-height: 12px;
+    width: 92px;
+    height: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+a:hover {
+    text-decoration: underline;
+    color: #FF2832;
+}
+/*微信支付弹出框*/
+.pop_tip {
+    padding: 0;
+    height: 360px;
+    width: 548px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    border: 1px solid #ff4545;
+    margin-top: 100px;
+}
+.pop_tip .head_title {
+    background-color: #ff4545;
+    font-size: 16px;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+    line-height: 36px;
+}
+.pop_tip .head_title .title_name {
+    float: left;
+    margin-left: 20px;
+}
+.pop_tip .head_title .title {
+    background: url(../../images/close_icon.png) no-repeat 0 0;
+    width: 14px;
+    height: 14px;
+    float: right;
+    margin: 10px;
+}
+.pop_tip .price {
+    color: #ff4545;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 25px 0 10px;
+}
+.pop_tip .code2 {
+    width: 170px;
+    height: 170px;
+    border: 1px solid #dfdfdf;
+    margin: 0 auto 22px;
+    padding: 9px;
+    position: relative;
+}
+.pop_tip .code2 .codew_icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 74px;
+    top: 74px;
+}
+.pop_tip .code2 .codew_icon img {
+    width: 40px;
+    height: 40px;
+}
+.pop_tip .btn_b {
+    height: 28px;
+    line-height: 28px;
+    width: 188px;
+    display: inline-block;
+    font-size: 12px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    background-image: -moz-linear-gradient( -90deg, rgb(255,255,255) 0%, rgb(243,242,244) 100%);
+    background-image: -webkit-linear-gradient( -90deg, rgb(255,255,255) 0%, rgb(243,242,244) 100%);
+    background-image: -ms-linear-gradient( -90deg, rgb(255,255,255) 0%, rgb(243,242,244) 100%);
+}

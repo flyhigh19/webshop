@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>我的订单</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/shop/myorder.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            $.post("order/findMyOrderList.do", {}, function (data) {
+                if(data.flag==false){
+                    $("#order_head_info").html("");
+                    var orderNull='<div class="empty" id="empty" style="">\n' +
+                        '            <div class="empty_content">\n' +
+                        '                <div>您没有该类型的订单，回首页<a href="/index.html">去逛逛~~</a></div>\n' +
+                        '            </div>\n' +
+                        '        </div>'
+                    $("#order_head_info").append(orderNull);
+                    $("#footer").remove();
+                } else{
+                    for(var i=0;i<data.length;i++){
+                        var orderList='<div id="orderList'+i+'" class="orderList">\n' +
+                                '        <div class="order_remind">\n' +
+                                '            <div class="order_show order_show_special" order_id="40092957748">\n' +
+                                '                <div class="order_show_head order_show_head1">\n' +
+                                '                    <span class="select_frame">\n' +
+                                '                        <input type="checkbox" name="payCheckbox" order_price="40" data-overseaself="0" data-enablepay="0" disabled="true" dd_name="支付">\n' +
+                                '                    </span>\n' +
+                                '                    <span class="log_icon business"></span>\n' +
+                                '                    <span>订单号：</span>\n' +
+                                '                    <span class="order_number" shop_id="13670">\n' +
+                                '                        <a dd_name="订单号查看" href="#" class="pay1" target="_blank">'+data[i].orderID+'</a>\n' +
+                                '                    </span>\n' +
+                                '                    <span class="time_order">'+data[i].orderTime+'</span>\n' +
+                                '                    <span class="price">￥&nbsp;'+data[i].totalMoney.toFixed(2)+'\n' +
+                                '                        <span></span>\n' +
+                                '                    </span>\n' +
+                                '                    <span class="online_pay">网上支付</span>\n' +
+                                '                    <span class="pay_person">'+data[i].receiveName+'\n' +
+                                '                        <span class="dropdown_icon"></span>\n' +
+                                '                    </span>\n' +
+                                '                    <span class="orderstatus">'+data[i].orderStatus+'</span>\n' +
+                                '                    <span class="zhifuorder">\n' +
+                                '                        <button type="button" class="btn btn-danger btn-xs" id="payment'+i+'">支付订单</button>\n' +
+                                '                    </span>\n' +
+                                '                    <span class="deleteorder">\n' +
+                                '                        <button type="button" class="btn btn-info btn-xs" id="deleteOrder'+i+'">删除订单</button>\n' +
+                                '                    </span>\n' +
+                                '                </div>\n' +
+                                '            </div>\n' +
+                                '        </div>\n' +
+                                '    </div>'
+                        $("#order_head_info").append(orderList);
+                        for(var j=0;j<data[i].orderDetail.length;j++){
+                            var goodsList='<div class="order_show_area" style="height: 100px">\n' +
+                                '                    <a dd_name="商品快照" href="/goods_detail.html?goodsID='+data[i].orderDetail[j].goodsID+'&&item='+data[i].orderDetail[j].item+'" class="j_productImg">\n' +
+                                '                        <img src="'+data[i].orderDetail[j].imgsrc+'">\n' +
+                                '                    </a>\n' +
+                                '                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">\n' +
+                                '                        <span class="info">\n' +
+                                '                            <a href="/goods_detail.html?goodsID='+data[i].orderDetail[j].goodsID+'&&item='+data[i].orderDetail[j].item+'" class="info_introduce">'+data[i].orderDetail[j].description+'</a>\n' +
+                                '                            <span class="price_s">\n' +
+                                '                                <span class="price_num">￥'+data[i].orderDetail[j].price+'</span>×\n' +
+                                '                                <span class="number">'+data[i].orderDetail[j].goodsNum+'</span>\n' +
+                                '                            </span>\n' +
+                                '                        </span>\n' +
+                                '                    </span>\n' +
+                                '                    <div class="orderGoodsDetail">\n' +
+                                '                        <a dd_name="订单详情" href="#" class="pay1" target="_blank">订单商品详情</a>\n' +
+                                '                    </div>\n' +
+                                '                </div>';
+                            $("#orderList"+i).append(goodsList)
+                        }
+                        $("#payment"+i).click(function () {
+                            var paymentid=$(this).attr("id").substring(7,8);
+                            location.href="payment.html?orderID="+data[paymentid].orderID;
+                        })
+                        $("#deleteOrder"+i).click(function () {
+                            var deleteOrderId=$(this).attr("id").substring(11,12);
+                            $.post("order/deleteMyPayOrder.do", {orderID:data[deleteOrderId].orderID}, function (data) {
+                                if(data.flag){
+                                    alert("成功删除订单！！")
+                                    location.href="/myorder.html";
+                                }else{
+                                    alert("删除订单失败！！")
+                                }
+                            })
+                        })
+                    }
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<div class="order_head_info" id="order_head_info">
+    <div class="order_detail" id="order_detail">
+        <span class="order_detail1">订单详情</span>
+        <span class="order_detail2">订单状态</span>
+        <span class="order_detail3">操作</span>
+    </div>
+    <!--<div id="orderList" class="orderList">
+        <div class="order_remind">
+            <div class="order_show order_show_special" order_id="40092957748">
+                <div class="order_show_head order_show_head1">
+                    <span class="select_frame">
+                        <input type="checkbox" name="payCheckbox" order_price="40" data-overseaself="0" data-enablepay="0" data-orders="40092957748,13670,0,0,40092957748,-1" disabled="true" dd_name="支付">
+                    </span>
+                    <span class="log_icon business"></span>
+                    <span>订单号：</span>
+                    <span class="order_number" shop_id="13670">
+                        <a dd_name="订单号查看" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092957748#bg40092957748" class="pay1" target="_blank">40092957748</a>
+                    </span>
+                    <span class="time_order">2020-04-23 14:39:56</span>
+                    <span class="price">￥&nbsp;59.7
+                        <span></span>
+                    </span>
+                    <span class="online_pay">网上支付</span>
+                    <span class="pay_person">张真
+                        <span class="dropdown_icon"></span>
+                    </span>
+                    <span class="orderstatus">未付款</span>
+                    <span class="zhifuorder">
+                        <button type="button" class="btn btn-danger btn-xs">支付订单</button>
+                    </span>
+                    <span class="deleteorder">
+                        <button type="button" class="btn btn-info btn-xs">删除订单</button>
+                    </span>
+                </div>
+                <div class="order_show_area" style="height: 100px">
+                    <a dd_name="商品快照" href="http://product.dangdang.com/1236376118.html" target="_blank" class="j_productImg">
+                        <img src="http://img3x8.ddimg.cn/65/28/1236376118-1_s.jpg">
+                    </a>
+                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">
+                        <span class="info">
+                            <a href="javascript:;" class="info_introduce">GXG牛仔裤男装 男士春季时尚斯文都市潮流修身休闲牛仔长裤男_蓝色,165/S</a>
+                            <span class="price_s">
+                                <span class="price_num">￥529</span>×
+                                <span class="number">1</span>
+                            </span>
+                        </span>
+                    </span>
+                    <div class="orderGoodsDetail">
+                        <a dd_name="订单详情" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092948058#bg40092948058" class="pay1" target="_blank">订单商品详情</a>
+                    </div>
+                </div>
+                <div class="order_show_area" style="height: 100px">
+                    <a dd_name="商品快照" href="http://product.dangdang.com/1236376118.html" target="_blank" class="j_productImg">
+                        <img src="http://img3x8.ddimg.cn/65/28/1236376118-1_s.jpg">
+                    </a>
+                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">
+                        <span class="info">
+                            <a href="javascript:;" class="info_introduce">GXG牛仔裤男装 男士春季时尚斯文都市潮流修身休闲牛仔长裤男_蓝色,165/S</a>
+                            <span class="price_s">
+                                <span class="price_num">￥529</span>×
+                                <span class="number">1</span>
+                            </span>
+                        </span>
+                    </span>
+                    <div class="orderGoodsDetail">
+                        <a dd_name="订单详情" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092948058#bg40092948058" class="pay1" target="_blank">订单商品详情</a>
+                    </div>
+                </div>
+                <div class="order_show_area" style="height: 100px">
+                    <a dd_name="商品快照" href="http://product.dangdang.com/1236376118.html" target="_blank" class="j_productImg">
+                        <img src="http://img3x8.ddimg.cn/65/28/1236376118-1_s.jpg">
+                    </a>
+                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">
+                        <span class="info">
+                            <a href="javascript:;" class="info_introduce">GXG牛仔裤男装 男士春季时尚斯文都市潮流修身休闲牛仔长裤男_蓝色,165/S</a>
+                            <span class="price_s">
+                                <span class="price_num">￥529</span>×
+                                <span class="number">1</span>
+                            </span>
+                        </span>
+                    </span>
+                    <div class="orderGoodsDetail">
+                        <a dd_name="订单详情" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092948058#bg40092948058" class="pay1" target="_blank">订单商品详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="orderList1" class="orderList">
+        <div class="order_remind">
+            <div class="order_show order_show_special" order_id="40092957748">
+                <div class="order_show_head order_show_head1">
+                    <span class="select_frame">
+                        <input type="checkbox" name="payCheckbox" order_price="40" data-overseaself="0" data-enablepay="0" data-orders="40092957748,13670,0,0,40092957748,-1" disabled="true" dd_name="支付">
+                    </span>
+                    <span class="log_icon business"></span>
+                    <span>订单号：</span>
+                    <span class="order_number" shop_id="13670">
+                        <a dd_name="订单号查看" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092957748#bg40092957748" class="pay1" target="_blank">40092957748</a>
+                    </span>
+                    <span class="time_order">2020-04-23 14:39:56</span>
+                    <span class="price">￥&nbsp;59.7
+                        <span></span>
+                    </span>
+                    <span class="online_pay">网上支付</span>
+                    <span class="pay_person">张真
+                        <span class="dropdown_icon"></span>
+                    </span>
+                    <span class="orderstatus">未付款</span>
+                    <span class="zhifuorder">
+                        <button type="button" class="btn btn-danger btn-xs">支付订单</button>
+                    </span>
+                    <span class="deleteorder">
+                        <button type="button" class="btn btn-info btn-xs">删除订单</button>
+                    </span>
+                </div>
+                <div class="order_show_area" style="height: 100px">
+                    <a dd_name="商品快照" href="http://product.dangdang.com/1236376118.html" target="_blank" class="j_productImg">
+                        <img src="http://img3x8.ddimg.cn/65/28/1236376118-1_s.jpg">
+                    </a>
+                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">
+                        <span class="info">
+                            <a href="javascript:;" class="info_introduce">GXG牛仔裤男装 男士春季时尚斯文都市潮流修身休闲牛仔长裤男_蓝色,165/S</a>
+                            <span class="price_s">
+                                <span class="price_num">￥529</span>×
+                                <span class="number">1</span>
+                            </span>
+                        </span>
+                    </span>
+                    <div class="orderGoodsDetail">
+                        <a dd_name="订单详情" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092948058#bg40092948058" class="pay1" target="_blank">订单商品详情</a>
+                    </div>
+                </div>
+                <div class="order_show_area" style="height: 100px">
+                    <a dd_name="商品快照" href="http://product.dangdang.com/1236376118.html" target="_blank" class="j_productImg">
+                        <img src="http://img3x8.ddimg.cn/65/28/1236376118-1_s.jpg">
+                    </a>
+                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">
+                        <span class="info">
+                            <a href="javascript:;" class="info_introduce">GXG牛仔裤男装 男士春季时尚斯文都市潮流修身休闲牛仔长裤男_蓝色,165/S</a>
+                            <span class="price_s">
+                                <span class="price_num">￥529</span>×
+                                <span class="number">1</span>
+                            </span>
+                        </span>
+                    </span>
+                    <div class="orderGoodsDetail">
+                        <a dd_name="订单详情" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092948058#bg40092948058" class="pay1" target="_blank">订单商品详情</a>
+                    </div>
+                </div>
+                <div class="order_show_area" style="height: 100px">
+                    <a dd_name="商品快照" href="http://product.dangdang.com/1236376118.html" target="_blank" class="j_productImg">
+                        <img src="http://img3x8.ddimg.cn/65/28/1236376118-1_s.jpg">
+                    </a>
+                    <span class="introduce_detail j_product_detail" style="left: 98px;/* display: none; */">
+                        <span class="info">
+                            <a href="javascript:;" class="info_introduce">GXG牛仔裤男装 男士春季时尚斯文都市潮流修身休闲牛仔长裤男_蓝色,165/S</a>
+                            <span class="price_s">
+                                <span class="price_num">￥529</span>×
+                                <span class="number">1</span>
+                            </span>
+                        </span>
+                    </span>
+                    <div class="orderGoodsDetail">
+                        <a dd_name="订单详情" href="http://order.dangdang.com/orderdetails.aspx?orderid=40092948058#bg40092948058" class="pay1" target="_blank">订单商品详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
+<!--导入底部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+</html>
