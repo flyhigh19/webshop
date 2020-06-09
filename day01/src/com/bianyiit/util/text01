@@ -1,0 +1,210 @@
+1.Servlet的学习
+    1.1 Servlet不是由我们去启动的，而是一些动态资源，最终这些资源会放到tomcat上，由tomcat去找这些资源并处理，不需要我们自己去启动和干涉
+        是针对不同的请求进行不同的处理
+    1.2 作用：是用来处理请求的
+    1.3 tomcat:接收请求、处理请求和响应数据
+    1.4 Servlet的执行流程：http://localhost:8080/day01/web,根据虚拟路径/day01去定位到具体的项目，再根据具体要请求的资源/web，去web.xml里面找
+            配置了一个servlet和一个servlet-mapping去找到对应的url-pattern,然后再找serlvet-name,然后再定位到具体的Servlet的全限定类名
+    1.5 Servlet的生命周期
+            对象的生命周期：对象创建到销毁的过程
+            生命周期方法：init:对象创建之后立马会执行; destroy:Servlet对象被销毁之前调用--对象都没有了何谈调用方法；处理用户请求的方法Service()
+            Servlet的创建：Servlet默认情况下是在用户第一次去请求这个Servlet的时候创建，Servlet创建的时候会执行init方法（init方法只会被执行一次），Servlet对象只会被创建一次
+            Servlet的处理请求：用户的每一次请求都会（创建新的线程--会使用线程池）执行Servlet的service方法处理请求，处理请求的代码一定是多线程的代码，只不过不需要我们去关注这些多线程，我们写的代码只是一些资源，由tomcat帮我们执行
+            Servlet的销毁：关闭tomcat服务器的时候，Servlet会被销毁,并且销毁的时候执行destroy方法
+            结论：Servlet对象是一个单例对象，只会被创建一次
+            多个人怎么同时去访问同一个Servlet资源？？
+                每一次用户请求唯一对应着服务器里面的一个线程，那么服务器的线程会非常多--会出现服务器的性能优化...
+            细节：Servlet的创建时机除了默认情况还有哪些情况 value="/web" loadOnstartup=-1
+                value="/web" loadOnstartup=-1  默认情况 Servlet会在用户第一次请求的时候创建
+                loadOnstartup=正整数（最好不要去配0） Servlet会在服务器启动的时候创建
+                除了注解，还可以在web.xml中的<servlet><load-on-startup>1</load-on-startup></servlet>
+                tomcat在启动的时候会加载的一些配置信息<init-param><param-name>-role <param-vale>-admin </init-param> 在init里面去调用这个方法servletconfig.getInitParameter("role");获取创建时的一些配置信息
+2.HTTP协议的学习
+    2.1 规范浏览器和服务器交互的消息格式
+    2.2 HTTP协议（超文本传输协议）是基于TCP协议，HTTP在传输数据之前先要建立安全连接
+    2.3 HTTP协议有不同的版本（三个版本） http1.0  http1.1(现在一般用的是这种)  http2.0
+        HTTP相对于TCP而言会自动关闭连接
+        1.0：客户端发送请求到服务器，建立连接，传输数据，关闭连接，浏览器展示数据
+        1.1：客户端发送请求到服务器，建立连接（连接可复用），进行多次的数据传输，关闭连接，浏览器展示数据
+    2.4 HTTP协议的默认端口是80，HTTP是无连接的，HTTP是无状态的（没有记忆能力，下一次数据传输和上一次数据传输之间没有联系）
+        也就意味着HTTP协议多次请求之间无法共享数据
+    2.5 传输过程中数据格式的问题：
+            1.HTTP协议是基于请求/响应模型（一旦建立连接，一次请求必须对应唯一的一次响应）
+            2.默认端口 80
+            3.无状态的协议（每次请求之间相互独立，不能共享数据）
+            4.基于TCP/IP协议的一个安全协议（不是https的安全）数据只要正确的传输就是安全的
+            5.格式要求：
+                http请求的消息格式：
+                get请求：只包含请求行和请求头
+                    请求行 请求方式/请求资源路径/协议版本
+                    请求头：键值对
+                    请求参数会拼接到请求行的资源路径后缀/web?username=张三&password=12345
+                get请求会把请求参数放在地址栏上
+
+                post请求的消息格式：
+                post请求：除了请求行、请求头还包含请求体
+                    请求行 请求方式/请求资源路径/协议版本
+                    请求头：键值对
+                    请求体：post请求的请求参数是放在请求体中的
+                get请求和post请求的区别
+                    1.get请求的请求参数是放在浏览器地址栏中提交的
+                      post请求的请求参数是放在请求体中
+                    2.get请求相对安全，post请求相对安全
+                    3.get请求提交的请求数据大小有限制（1Kb），post请求没有大小限制
+            6.tomcat接收到请求的第一件事情，接收客户端所有数据，并且把这些数据封装成对象Request对象，返回数据，使用封装好的Response对象，设置响应数据
+            7.浏览器中展示的都是响应体的内容
+            8.HTTP请求方法有九种，但是HTTPServlet只实现了七种，但是我们只学习其中的get和post请求
+            9.tomcat调用Servlet处理请求的完整过程：
+                1.浏览器通过get/post向服务器发送请求
+                2.服务器接收请求，并且创建代表请求的Request对象和代表响应的Response对象
+                3.tomcat会根据请求的路径去找到对应的Servlet（路径匹配的过程）,执行Servlet的生命周期，然后执行servlet的service方法
+                4.tomcat将代表请求的request对象和代表响应的Response对象作为参数传递到service方法中
+                5.在servlet的service方法中通过request对象获取客户端传过来的数据，处理业务逻辑，通过response设置响应数据
+            10.一次请求---一个request对象---一个线程
+            11.请求Servlet---request对象  请求html---request对象  请求图片/js---request对象
+3.HttpServletRequest的学习
+    3.1 request对象有什么样的功能？？
+        1.获取客户端传过来的三部分信息
+            请求行:请求方式/请求资源路径/请求协议
+                request.getMethod();/获取请求方式
+                getRequestURL().toString();/获取请求资源路径 协议+主机+端口+URI
+                getRequestURI();/获取请求资源路径
+                getProtocol();/获取请求协议
+                getQueryString();/获取请求参数（只能在get请求上面用）
+            请求头:一般是浏览器告诉服务器本次请求的基本信息
+                getHeader("Host");/主机
+              **getHeader("User-Agent");/告诉服务器本次请求的浏览器版本信息（兼容/电脑/手机）
+                getHeader("Accept");/告诉服务器本次请求的数据的格式 text/html/xml
+                getHeader("Accept-language"); /支持的语言
+                getHeader("Accept-Encoding"); /支持的压缩格式
+              **getHeader("Referer"); /告诉服务器本次请求的来源(防盗链) http://localhost:8080/
+                getHeader("Connection");/HTTP1.1 支持长连接 keep-alive
+            post请求的请求体：
+                getInputStream();/获取请求体的字节输入流
+                getReader();/获取请求体的字符输入流
+                rs.readline();/读取一行信息
+                username=root&password=123
+    3.2 request在获取请求参数的时候由于get请求和post请求参数所在的位置不一样，所以导致get请求和post请求的处理代码也不一样
+        HttpServletRequest对象中又给我们封装了一些统一的方便的获取请求参数相关的方法
+        解决get和post代码有差异的问题，httpservletRequest对get和post都适用(方法一致)
+            request.getParameter("username"); /root
+            request.getParameter("password"); /123
+            getParameterValues("hobby");  /主要利用在多选框上面，一个名字对应多个值
+            getParameterMap();/一次性获取所有请求参数，然后遍历map集合  map的key是请求参数名称 value是请求参数值对应的数组
+            getParameterNames(); /获取名称 hasMoreElements/判断  nextElement()/遍历获取名称
+        doGet{doPost(request,response)};/为了解决get和post通用的问题，可以直接在dopost处理请求操作，在doget中调用dopost方法
+    3.3 乱码问题：当我们输入中文的时候，get请求没问题，post请求的时候服务器显示的时候是乱码
+            post请求中文乱码问题解决方法：
+                设置request缓冲区的编码 setCharacterEncoding("utf-8");/在获取请求参数之前设置编码格式
+
+            tomcat8.5之前的get请求中文乱码问题解决方法：
+                get请求中文乱码问题在tomcat8.5之后自动解决，在tomcat8.5之前会有乱码问题，get请求的请求参数是在请求行中提交过去
+                http协议本身不支持中文，由协议本身决定的 "编译"-->URLEncoding格式--%E7%94...（16进制） tomcat默认设置的编码-ISO-8859-1，然后我们再用utf-8去解肯定不行
+                甲骨文-utf-8-二进制-ISO-8859-1-????-ISO-8859-1(反向设置)-二进制-utf-8-甲骨文
+                1.代码解决
+                    byte[] bytes=username.getBytes("ISO-8859-1");/数组
+                    username=new String(bytes,"utf-8");/这样就不会出现乱码问题了
+                2.指定tomcat的编码
+                    找到tomcat/config/server.xml，将默认的ISO-8859-1的方式改成URIEncoding="utf-8"
+    3.4 请求/资源的转发：
+            作用：资源跳转的一种方式 request得到转发器，然后调用方法进行请求转发
+            request.getRequestDispatcher("/success.html").forward(request,response);
+            业务场景：客户端发送请求，请求服务器某一个资源的时候，这个资源处理不了请求，然后再把请求交给其它资源处理
+            特点：
+                浏览器只会发生了一次请求
+                浏览器地址栏不会发生变化
+                请求转发的时候只能跳转到服务器内容资源
+    3.5 登录失败之后提示用户输入错误
+            作为域对象共享数据
+                什么是域对象？？
+                    在一定的范围内可以共享数据的对象
+                每个域对象的作用范围？？
+                    request域对象的作用范围--- 一次请求范围内（请求转发的时候）
+                域对象是如何共享数据的？？
+                    request对象，两个servlet所使用的request对象是一个对象
+                    将数据放入到request对象中，在两个Servlet中如何传递数据，使用request对象
+                    request.setAttribute("money",15);/设置数据
+                    (int)request.getAttribute("money");/获取数据
+                    request.removeAttribute("money");/移除数据
+4.response的学习--设置响应数据
+    4.1 http协议响应消息数据
+        响应行--HTTP/1.1 200 ok(协议版本，响应状态码,状态码的描述)
+            状态码是用来标识服务器此次响应的状态：
+            状态码分类
+                1**	  信息         服务器收到请求，需要请求者继续执行操作
+                2**	  成功         操作被成功接收并处理
+                3**	  重定向       需要进一步的操作以完成请求
+                4**	  客户端错误   请求包含语法错误或无法完成请求
+                5**	  服务器错误   服务器在处理请求的过程中发生了错误
+            常用状态码
+                200	OK	请求成功。一般用于GET与POST请求
+                302	Found	临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI
+                304	Not Modified	未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源
+                404	Not Found	服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置"您所请求的资源无法找到"的个性页面
+                405	Method Not Allowed	客户端请求中的方法被禁止
+                500	Internal Server Error	服务器内部错误，无法完成请求
+        响应头--服务器传给客户端
+            Content-Type:text/html;charset="utf-8"/服务器告诉浏览器本次响应的数据格式和编码
+            Content-length: 50/本次响应体的长度
+    4.2 response对象的基础功能
+        1.描述：response是代表本次请求的响应消息对象，可以用来设置响应数据
+            设置响应行的数据
+                res.setStatus(200);/设置状态码
+            设置响应头
+                res.setHeader("key1","value1");
+            设置响应体数据
+                字节流
+                    os-->res.getOutputStream();
+                    os.write("hello tomcat!!".getBytes());
+                字符流
+                    os-->res.getWriter();
+                    os.write("hello tomcat!!");
+    4.3 response对象的其它功能
+        1.重定向：资源跳转的一种方式--302状态码+location响应头
+            res.setStatus(302);
+            res.setHeader("location","/responseServlet04")
+            res.sendRedirect("/responseServlet04");/一行代码替代上面两行代码实现重定向
+        2.面试题：重定向和请求转发的区别
+            请求转发时客户端只会发送一次请求，重定向会发送两次请求
+            请求转发时浏览器地址栏不会发生变化，而重定向时浏览器地址栏会发生变化
+            请求转发时只能跳转到服务器内部资源，而重定向可以跳转到其它服务器资源
+        3.什么时候使用重定向，什么时候使用请求转发
+            如果跳转的两个资源之间要通过request对象去共享数据，那就只能使用请求转发
+            如果地址栏要发生变化，或者要跳转到其它服务器的资源的时候，必须使用重定向
+        4.如果为项目配置一个虚拟路径
+            重定向的路径前面一定要加虚拟路径，如果是请求转发前面不需要添加虚拟路径
+            资源跳转的路径问题
+                请求转发的时候--服务器内部使用路径
+                重定向的时候--不在服务器内部资源的使用路径
+            虚拟路径--区分不在同一个项目里面的资源所要用到的
+        5.响应字符数据到浏览器（不需要在控制台打印日志了）
+            响应的如果是英文字符,就不会出现乱码问题
+                res.getWriter().println("hello tomcat!!");
+            响应的如果是中文
+                res.getWriter().println("中文");/会出现乱码
+                字符流会有缓冲区，缓冲区会有乱码，设置响应数据，数据的编码是utf-8 缓冲区的编码是gbk
+                设置缓冲区的编码：
+                    res.setCharacterEncoding("utf-8");
+                服务器告诉浏览器本次响应的数据格式和编码
+                    res.setHeader("Content-Type","text/html;charset=utf-8");
+                    resp.setContentType("text/html;charset=UTF-8")
+                如果是字节流，那么不会有缓冲区，在调用"中文".getBytes()--->GB2312
+                如果浏览器的默认编码和服务器的默认编码不一致就可能会导致中文乱码问题
+                    resp.setContentType("text/html;charset=UTF-8")
+                    res.getOutputStream().write("中文".getBytes("utf-8"))
+5.动态表格展示
+    在servlet里面给html里面响应一个表格（里面的信息是数据库中的信息）
+    请求/userServlet，在UserServlet这个类中接收到请求，然后查询到数据库
+    中所有的用户记录--UserDao/findAll(),遍历集合生成表格响应到浏览器中
+6.文件下载：
+    方式一：使用超链接的方式指向要下载的资源
+        注意：超链接下载的资源必须是浏览器不能直接打开的资源，如果浏览器能打开就直接打开了，不会启动下载程序
+    方式二：在servlet里面读取一个文件，然后通过response将这个文件响应到浏览器上
+        必须添加一个响应头，并设置为attachment为附件的形式
+        response.setHeader("Content-Disposition","attachment;filename="+filename);
+7.登录验证码
+    为了防止机器攻击
+    图片验证码文字内容不固定--随机的
+    图片每次点击都会切换
+    图片应该是动态生成的，而不是固定图片
+
